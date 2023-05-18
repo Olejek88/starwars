@@ -1,11 +1,13 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    kotlin(KotlinPlugins.serialization) version "1.7.10"
+    id(KotlinPlugins.parcelize)
 }
 
 kotlin {
     android()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -16,14 +18,57 @@ kotlin {
         }
     }
 
+    kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
+
+        // export correct artifact to use all classes of library directly from Swift
+
+        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
+            export("dev.icerock.moko:mvvm-core:0.13.1")
+        }
+
+        binaries.all {
+            binaryOptions["memoryModel"] = "experimental"
+        }
+    }
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                with(Ktor) {
+                    implementation(clientCore)
+                    implementation(clientJson)
+                    implementation(clientLogging)
+                    implementation(clientSerialization)
+                    implementation(contentNegotiation)
+                    implementation(json)
+                }
+                with(Koin) {
+                    implementation(koin)
+                }
+                with(Kotlinx) {
+                    implementation(serializationCore)
+                    implementation(datetime)
+                }
+                with(Moko) {
+                    api(mokoMVVMCore)
+                }
+                with(Coroutines) {
+                    implementation(coroutines)
+                }
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Ktor.clientAndroid)
+                implementation(Koin.koinAndroid)
+
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -48,6 +93,7 @@ kotlin {
 
 android {
     namespace = "de.olegrom.starwars"
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     compileSdk = 33
     defaultConfig {
         minSdk = 21
