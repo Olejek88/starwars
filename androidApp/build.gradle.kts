@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
+    id("com.google.devtools.ksp") version "1.8.10-1.0.9"
 }
 
 android {
@@ -24,7 +24,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 
     applicationVariants.all {
@@ -45,27 +45,27 @@ android {
 dependencies {
     implementation(project(":shared"))
 
-    with(ComposeDestination){
+    with(ComposeDestination) {
 
         implementation(composeDestination)
         ksp(composeDestinationPlugin)
     }
-    with(Material3){
+    with(Material3) {
         implementation(material3)
         implementation(window)
     }
-    with(Accompanist){
+    with(Accompanist) {
         implementation(coil)
         implementation(webview)
     }
-    with(Compose){
-        implementation(util){
+    with(Compose) {
+        implementation(util) {
 
         }
         implementation(composeActivity) {
             because("We are not using  xml its better to use compose activity ")
         }
-        implementation(composeToolingDebug){
+        implementation(composeToolingDebug) {
             because("Supports preview of composables")
         }
         implementation(composeUI) {

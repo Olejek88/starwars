@@ -9,7 +9,7 @@ class StarWarsApp : Application(){
 
     override fun onCreate() {
         super.onCreate()
-        initKoin(baseUrl = "https://swapi.py4e.com/api/", enableNetworkLogs = BuildConfig.DEBUG) {
+        initKoin(baseUrl = "https://swapi.py4e.com/api", enableNetworkLogs = BuildConfig.DEBUG) {
             androidContext(this@StarWarsApp)
             modules(
                 listOf(module {
