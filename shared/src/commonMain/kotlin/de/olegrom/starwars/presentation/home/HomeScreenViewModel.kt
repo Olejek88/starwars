@@ -27,7 +27,7 @@ class HomeScreenViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewMo
 
     private fun getFilms() {
         viewModelScope.launch {
-            getFilmsUseCase.invoke(page = page).asResult().collectLatest { result ->
+            getFilmsUseCase.invoke().asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         if (page == 1) {
@@ -58,7 +58,7 @@ class HomeScreenViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewMo
                             }
                         } else {
                             _state.update {
-                                (it as ScreenState.Success).copy(it.headlines + result.data)
+                                (it as ScreenState.Success).copy(films = it.films + result.data)
                             }
                         }
                     }

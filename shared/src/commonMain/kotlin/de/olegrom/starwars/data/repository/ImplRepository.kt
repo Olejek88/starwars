@@ -5,14 +5,7 @@ import de.olegrom.starwars.data.remote.service.AbstractKtorService
 class ImplRepository(
     private val ktorService: AbstractKtorService
 ) : AbstractRepository() {
-
-    override suspend fun getAllFilms(
-        page: Int,
-        pageSize: Int
-    ) = ktorService.getFilms(
-        pageSize = pageSize,
-        page = page,
-    )
+    override suspend fun getAllFilms() = ktorService.getFilms()
 }
 
 
