@@ -1,5 +1,6 @@
 package de.olegrom.starwars.android.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.grid.*
@@ -42,14 +43,7 @@ fun FilmsScreen(modifier: Modifier,
         state = listState,
         columns = GridCells.Adaptive(450.dp)
     ) {
-        item(span = { GridItemSpan(maxCurrentLineSpan) }) {
-        /*
-            SectionHeader(
-                stageStatus?.data?.headline ?: stringResource(R.string.discover_title),
-                stageStatus?.data?.description ?: stringResource(R.string.discover_subtitle)
-            )
-*/
-        }
+        item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
         when (state) {
             is ScreenState.Error -> {
                 item {
@@ -67,6 +61,7 @@ fun FilmsScreen(modifier: Modifier,
             }
             is ScreenState.Success -> {
                 (state as ScreenState.Success).films.forEach { item ->
+                    Log.d("[]","${item.title}")
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
                             item.title, item.title, item.title
@@ -79,7 +74,9 @@ fun FilmsScreen(modifier: Modifier,
 }
 
 fun LazyGridScope.placeholder() {
-    item {
-        CircularProgressIndicator()
+    item(span = { GridItemSpan(maxCurrentLineSpan) }) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            CircularProgressIndicator(modifier = Modifier.size(50.dp))
+        }
     }
 }
