@@ -7,7 +7,6 @@ plugins {
 
 kotlin {
     android()
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -74,6 +73,9 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
+            dependencies {
+                implementation(Ktor.clientIos)
+            }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -99,4 +101,7 @@ android {
         minSdk = 21
         targetSdk = 33
     }
+}
+dependencies {
+    implementation(project(mapOf("path" to ":shared")))
 }
