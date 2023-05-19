@@ -83,11 +83,18 @@ fun StarWarsTheme(
         )
     }
     val typography = Typography(
+        bodySmall = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal
+        ),
         bodyMedium = TextStyle(
-            fontFamily = FontFamily.Default,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
-            fontSize = 16.sp
-        )
+        ),
+        bodyLarge = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal
+        ),
     )
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),

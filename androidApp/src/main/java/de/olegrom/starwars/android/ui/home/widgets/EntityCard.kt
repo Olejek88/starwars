@@ -24,6 +24,7 @@ fun EntityCard(
     imageUrl: String,
     title: String,
     subtitle: String,
+    additional: String? = null,
     itemClick: () -> Unit = {}
 ) {
     Card(
@@ -33,16 +34,13 @@ fun EntityCard(
             .clip(shape = RoundedCornerShape(size = 10.dp)),
     ) {
         Row(
-            Modifier.fillMaxWidth(),
+            Modifier.fillMaxWidth().padding(10.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.Top
         ) {
-            Spacer(modifier = Modifier.height(5.dp))
             AsyncImage(
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(150.dp)
-                    .fillMaxWidth(),
+                modifier = Modifier.size(100.dp).clip(RoundedCornerShape(10.dp)),
                 model = ImageRequest.Builder(
                     LocalContext.current
                 ).scale(Scale.FILL).data(imageUrl).crossfade(true).build(),
@@ -63,8 +61,13 @@ fun EntityCard(
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
+                if (additional!=null) {
+                    Text(
+                        text = additional,
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
+                    )
+                }
             }
-            Spacer(modifier = Modifier.height(5.dp))
         }
     }
 }

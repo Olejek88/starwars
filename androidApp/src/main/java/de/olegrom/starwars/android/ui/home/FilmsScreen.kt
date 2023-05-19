@@ -64,7 +64,10 @@ fun FilmsScreen(modifier: Modifier,
                     Log.d("[]","${item.title}")
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
-                            item.title, item.title, item.title
+                            "https://fontmeme.com/images/Star-Wars-Poster.jpg",
+                            "${item.title} [Episode: ${item.episodeId}]",
+                            "Director: ${item.director}, Producer: ${item.producer}",
+                            "Release date: ${item.releaseDate}"
                         )
                     }
                 }
