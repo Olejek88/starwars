@@ -102,6 +102,3 @@ android {
         targetSdk = 33
     }
 }
-dependencies {
-    implementation(project(mapOf("path" to ":shared")))
-}

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Star Wars</string>
+    <string name="films" translatable="false">Films</string>
+    <string name="starships" translatable="false">Starships</string>
+    <string name="persons" translatable="false">Persons</string>
+    <string name="planets" translatable="false">Planets</string>
 </resources>
