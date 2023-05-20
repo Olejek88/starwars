@@ -4,7 +4,8 @@ import de.olegrom.starwars.data.remote.service.AbstractKtorService
 import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.AbstractRepository
 import de.olegrom.starwars.data.repository.ImplRepository
-import de.olegrom.starwars.domain.usecase.home.GetFilmsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetStarshipsUseCase
 import de.olegrom.starwars.platformModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
@@ -71,6 +72,9 @@ fun getDateModule(enableNetworkLogs: Boolean, baseUrl: String) = module {
 fun getUseCaseModule() = module {
     single {
         GetFilmsUseCase(get())
+    }
+    single {
+        GetStarshipsUseCase(get())
     }
 }
 

@@ -1,7 +1,8 @@
 package de.olegrom.starwars
 
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
-import de.olegrom.starwars.presentation.home.HomeScreenViewModel
+import de.olegrom.starwars.presentation.home.FilmsViewModel
+import de.olegrom.starwars.presentation.home.ShipsViewModel
 import org.koin.dsl.module
 import io.ktor.client.engine.darwin.*
 import platform.UIKit.UIDevice
@@ -18,7 +19,10 @@ actual fun platformModule() = module {
     }
     //single or factory can be used to get a view-model object for swiftui
     single {
-        HomeScreenViewModel(get())
+        FilmsViewModel(get())
+    }
+    single {
+        ShipsViewModel(get())
     }
     factory {
         FilmDetailsViewModel()

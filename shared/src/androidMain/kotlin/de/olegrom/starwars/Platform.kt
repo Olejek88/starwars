@@ -2,7 +2,8 @@ package de.olegrom.starwars
 
 import android.os.Parcelable
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
-import de.olegrom.starwars.presentation.home.HomeScreenViewModel
+import de.olegrom.starwars.presentation.home.FilmsViewModel
+import de.olegrom.starwars.presentation.home.ShipsViewModel
 import io.ktor.client.engine.android.*
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -27,7 +28,12 @@ actual fun platformModule() = module {
         Android.create()
     }
     viewModel {
-        HomeScreenViewModel(
+        FilmsViewModel(
+            get()
+        )
+    }
+    viewModel {
+        ShipsViewModel(
             get()
         )
     }

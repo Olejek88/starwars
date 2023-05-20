@@ -22,6 +22,8 @@ fun BottomNavigationMenu(navController: NavController) {
     val items = getNavigationItems()
     val backStackEntry = navController.currentBackStackEntryAsState()
     val currentTab = remember { mutableStateOf(Screen.Films.route) }
+    val currentRoute = backStackEntry.value?.destination?.route ?: Screen.Films.route
+    currentTab.value = getTabActive(currentRoute, currentRoute)
     NavigationBar(
         contentColor = MaterialTheme.colorScheme.onSurface
     ) {
@@ -79,5 +81,16 @@ private fun getNavigationItems(): List<BottomNavItem> {
         ),
     );
 }
+
+private fun getTabActive(currentTab: String, currentRoute: String?): String {
+    return when(currentRoute) {
+        Screen.Films.route,
+        Screen.Starships.route,
+        Screen.Planets.route,
+        Screen.Peoples.route -> currentRoute
+        else -> currentTab
+    }
+}
+
 
 data class BottomNavItem(val title: String, val icon: Int, val screen_route: String)

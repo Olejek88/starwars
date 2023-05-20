@@ -6,6 +6,7 @@ class ImplRepository(
     private val ktorService: AbstractKtorService
 ) : AbstractRepository() {
     override suspend fun getAllFilms() = ktorService.getFilms()
+    override suspend fun getAllStarships() = ktorService.getStarships()
 }
 
 

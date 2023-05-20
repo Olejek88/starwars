@@ -14,20 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
-import de.olegrom.starwars.presentation.home.FilmsViewModel
-import de.olegrom.starwars.presentation.home.FilmsScreenState
+import de.olegrom.starwars.presentation.home.*
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FilmsScreen(modifier: Modifier,
+fun ShipsScreen(modifier: Modifier,
                 navController: NavHostController,
-                viewModel: FilmsViewModel = getViewModel()
+                viewModel: ShipsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetFilms)
+        viewModel.onIntent(AllScreensSideEvent.GetShips)
     }
     LazyVerticalGrid(
         modifier = modifier.fillMaxHeight(),
@@ -41,40 +39,32 @@ fun FilmsScreen(modifier: Modifier,
     ) {
         item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
         when (state) {
-            is FilmsScreenState.Error -> {
+            is ShipsScreenState.Error -> {
                 item {
                     Text(
-                        text = (state as FilmsScreenState.Error).errorMessage ?: "",
+                        text = (state as ShipsScreenState.Error).errorMessage ?: "",
                         style = MaterialTheme.typography.headlineMedium
                     )
                 }
 
             }
-            FilmsScreenState.Idle -> {}
-            FilmsScreenState.Loading -> {
+            ShipsScreenState.Idle -> {}
+            ShipsScreenState.Loading -> {
                 placeholder()
 
             }
-            is FilmsScreenState.Success -> {
-                (state as FilmsScreenState.Success).films.forEach { item ->
+            is ShipsScreenState.Success -> {
+                (state as ShipsScreenState.Success).ships.forEach { item ->
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
-                            "https://fontmeme.com/images/Star-Wars-Poster.jpg",
-                            "${item.title} [Episode: ${item.episodeId}]",
-                            "Director: ${item.director}, Producer: ${item.producer}",
-                            "Release date: ${item.releaseDate}"
+                            "https://static.wikia.nocookie.net/starwars/images/7/70/DSI-HDapproach.png/revision/latest?cb=20130221005853",
+                            item.model,
+                            "Manufacturer: ${item.manufacturer}",
+                            "Cost: ${item.cost}"
                         )
                     }
                 }
             }
-        }
-    }
-}
-
-fun LazyGridScope.placeholder() {
-    item(span = { GridItemSpan(maxCurrentLineSpan) }) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            CircularProgressIndicator(modifier = Modifier.size(50.dp))
         }
     }
 }

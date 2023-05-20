@@ -7,16 +7,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import de.olegrom.starwars.android.R
 import de.olegrom.starwars.android.navigation.main.MainGraph
+import de.olegrom.starwars.android.navigation.main.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
     var canPop by remember { mutableStateOf(false) }
+    val currentTitle = remember { mutableStateOf(Screen.Films.route) }
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     Column(modifier = Modifier.fillMaxSize()) {
@@ -25,7 +29,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
                 MediumTopAppBar(
                     title = {
                         Text(
-                            "Films",
+                            currentTitle.value,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth(),
                             style = MaterialTheme.typography.titleMedium
@@ -71,5 +75,16 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
             },
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
         )
+    }
+}
+
+@Composable
+fun getLabelByRoute(route: String): String {
+    return when (route) {
+        Screen.Films.route -> stringResource(R.string.films)
+        Screen.Starships.route -> stringResource(R.string.starships)
+        Screen.Peoples.route -> stringResource(R.string.planets)
+        Screen.Planets.route -> stringResource(R.string.planets)
+        else -> stringResource(R.string.app_name)
     }
 }

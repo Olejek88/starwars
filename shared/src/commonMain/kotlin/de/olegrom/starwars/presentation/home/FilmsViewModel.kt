@@ -1,6 +1,7 @@
 package de.olegrom.starwars.presentation.home
 
-import de.olegrom.starwars.domain.usecase.home.GetFilmsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetStarshipsUseCase
 import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.domain.util.Result
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -10,18 +11,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeScreenViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
-    private val _state = MutableStateFlow<ScreenState>(ScreenState.Idle)
+class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
+    private val _state = MutableStateFlow<FilmsScreenState>(FilmsScreenState.Idle)
     var state = _state.asStateFlow()
     private var page: Int = 1
     fun onIntent(intent: AllScreensSideEvent) {
-        when (intent) {
-            is AllScreensSideEvent.GetFilms -> {
-                getFilms()
-            }
-            else -> {
-
-            }
+        if (intent is AllScreensSideEvent.GetFilms) {
+            getFilms()
         }
     }
 
@@ -30,42 +26,33 @@ class HomeScreenViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewMo
             getFilmsUseCase.invoke().asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
-                        if (page == 1) {
-                            _state.update {
-                                ScreenState.Error(result.exception.message)
-                            }
+                        _state.update {
+                            FilmsScreenState.Error(result.exception.message)
                         }
                     }
                     Result.Idle -> {
-                        if (page == 1) {
-                            _state.update {
-                                ScreenState.Idle
-                            }
+                        _state.update {
+                            FilmsScreenState.Idle
                         }
-
                     }
                     Result.Loading -> {
-                        if (page == 1) {
-                            _state.update {
-                                ScreenState.Loading
-                            }
+                        _state.update {
+                            FilmsScreenState.Loading
                         }
                     }
                     is Result.Success -> {
                         if (page == 1) {
                             _state.update {
-                                ScreenState.Success(result.data)
+                                FilmsScreenState.Success(result.data)
                             }
                         } else {
                             _state.update {
-                                (it as ScreenState.Success).copy(films = it.films + result.data)
+                                (it as FilmsScreenState.Success).copy(films = it.films + result.data)
                             }
                         }
                     }
                 }
-
             }
-
         }
     }
 }

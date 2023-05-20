@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.olegrom.starwars.android.ui.home.FilmsScreen
+import de.olegrom.starwars.android.ui.home.ShipsScreen
 
 @Composable
 fun MainGraph(
@@ -21,10 +22,10 @@ fun MainGraph(
             FilmsScreen(modifier, navController)
         }
         composable(Screen.Peoples.route) {
-            FilmsScreen(modifier, navController)
+            ShipsScreen(modifier, navController)
         }
         composable(Screen.Starships.route) {
-            FilmsScreen(modifier, navController)
+            ShipsScreen(modifier, navController)
         }
         composable(Screen.Planets.route) {
             FilmsScreen(modifier, navController)
