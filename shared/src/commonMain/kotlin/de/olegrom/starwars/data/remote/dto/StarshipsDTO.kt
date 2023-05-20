@@ -7,11 +7,11 @@ data class StarshipsDTO(
     val count: Int,
     val next: String?,
     val previous: String?,
-    val results: List<Starship>,
+    val results: List<StarshipDTO>,
 )
 
 @kotlinx.serialization.Serializable
-data class Starship(
+data class StarshipDTO(
     var name: String,
     var model: String,
     var manufacturer: String,

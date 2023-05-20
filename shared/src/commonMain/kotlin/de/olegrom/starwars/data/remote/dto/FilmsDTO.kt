@@ -7,11 +7,11 @@ data class FilmsDTO(
     val count: Int,
     val next: String?,
     val previous: String?,
-    val results: List<Film>,
+    val results: List<FilmDTO>,
 )
 
 @kotlinx.serialization.Serializable
-data class Film(
+data class FilmDTO(
     val title: String = "Undefined",
     var episode_id: Int = 2,
     var openingCrawl: String = "",

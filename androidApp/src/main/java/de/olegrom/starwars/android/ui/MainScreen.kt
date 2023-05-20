@@ -10,6 +10,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import de.olegrom.starwars.android.R
@@ -23,6 +24,22 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
     val currentTitle = remember { mutableStateOf(Screen.Films.route) }
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    DisposableEffect(navController) {
+        val listener = NavController.OnDestinationChangedListener { controller, _, _ ->
+            canPop = false
+            controller.currentBackStackEntry?.destination?.route?.let {
+                currentTitle.value = it
+                canPop = (it != Screen.Planets.route)
+                        && (it != Screen.Films.route)
+                        && (it != Screen.Peoples.route)
+                        && (it != Screen.Starships.route)
+            }
+        }
+        navController.addOnDestinationChangedListener(listener)
+        onDispose {
+            navController.removeOnDestinationChangedListener(listener)
+        }
+    }
     Column(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             topBar = {
@@ -83,7 +100,7 @@ fun getLabelByRoute(route: String): String {
     return when (route) {
         Screen.Films.route -> stringResource(R.string.films)
         Screen.Starships.route -> stringResource(R.string.starships)
-        Screen.Peoples.route -> stringResource(R.string.planets)
+        Screen.Peoples.route -> stringResource(R.string.persons)
         Screen.Planets.route -> stringResource(R.string.planets)
         else -> stringResource(R.string.app_name)
     }
