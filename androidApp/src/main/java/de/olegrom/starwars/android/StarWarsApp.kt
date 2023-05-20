@@ -6,6 +6,9 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 class StarWarsApp : Application(){
+    companion object {
+        const val FILM_URL = "https://fontmeme.com/images/Star-Wars-Poster.jpg"
+    }
 
     override fun onCreate() {
         super.onCreate()

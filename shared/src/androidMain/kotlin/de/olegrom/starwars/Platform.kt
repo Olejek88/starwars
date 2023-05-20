@@ -38,6 +38,6 @@ actual fun platformModule() = module {
         )
     }
     viewModel {
-        FilmDetailsViewModel()
+        FilmDetailsViewModel(get())
     }
 }

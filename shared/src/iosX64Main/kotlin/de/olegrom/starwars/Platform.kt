@@ -22,10 +22,10 @@ actual fun platformModule() = module {
         FilmsViewModel(get())
     }
     single {
-        ShipsViewModel(get())
+        FilmDetailsViewModel(get())
     }
-    factory {
-        FilmDetailsViewModel()
+    single {
+        ShipsViewModel(get())
     }
 }
 

@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.flow
 class GetFilmUseCase(
     private val repository: AbstractRepository
 ) {
-    operator fun invoke() = flow {
-        val response = repository.getAllFilms().asDomainModel()
+    operator fun invoke(id: String) = flow {
+        val response = repository.getFilm(id).asDomainModel()
         emit(response)
     }
 }

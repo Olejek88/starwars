@@ -25,13 +25,17 @@ data class FilmDTO(
 
 fun FilmsDTO.asDomainModel(): List<FilmDomainModel> {
     return this.results.map {
-        FilmDomainModel(
-            title = it.title,
-            episodeId = it.episode_id,
-            openingCrawl = it.openingCrawl,
-            director = it.director,
-            producer = it.producer,
-            releaseDate = it.release_date
-        )
+        it.asDomainModel()
     }
+}
+
+fun FilmDTO.asDomainModel(): FilmDomainModel {
+    return FilmDomainModel(
+            title = this.title,
+            episodeId = this.episode_id,
+            openingCrawl = this.openingCrawl,
+            director = this.director,
+            producer = this.producer,
+            releaseDate = this.release_date
+        )
 }

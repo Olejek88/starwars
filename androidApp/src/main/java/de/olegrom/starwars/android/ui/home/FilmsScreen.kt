@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import de.olegrom.starwars.android.StarWarsApp
+import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.FilmsViewModel
@@ -56,14 +58,19 @@ fun FilmsScreen(modifier: Modifier,
 
             }
             is FilmsScreenState.Success -> {
-                (state as FilmsScreenState.Success).films.forEach { item ->
+                (state as FilmsScreenState.Success).films.forEachIndexed { index, item ->
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
-                            "https://fontmeme.com/images/Star-Wars-Poster.jpg",
+                            StarWarsApp.FILM_URL,
                             "${item.title} [Episode: ${item.episodeId}]",
                             "Director: ${item.director}, Producer: ${item.producer}",
                             "Release date: ${item.releaseDate}"
-                        )
+                        ) {
+                            navController.navigate(
+                                Screen.Film.route.replace(
+                                    "{filmId}", index.toString())
+                            )
+                        }
                     }
                 }
             }

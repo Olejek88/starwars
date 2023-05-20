@@ -31,9 +31,7 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> {
 sealed class CustomMessage(val message: String = "") {
     object NetworkError : CustomMessage("Something wrong with network, please try again.")
     object RandomError : CustomMessage("Something went wrong, please try again.")
-    object ResponseError :
-        CustomMessage("We are fixing your problem, Thank you for your patience.")
-
+    object ResponseError : CustomMessage("We are fixing your problem, Thank you for your patience.")
     object NoInternet : CustomMessage("No Internet")
     object NotFound : CustomMessage("Not Found")
     data class ExceptionMessage(val error: String) : CustomMessage(message = error)

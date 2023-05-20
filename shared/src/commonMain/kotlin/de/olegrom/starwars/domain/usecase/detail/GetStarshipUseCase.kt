@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.flow
 class GetStarshipUseCase(
     private val repository: AbstractRepository
 ) {
-    operator fun invoke() = flow {
-        val response = repository.getAllStarships().asDomainModel()
+    operator fun invoke(id: String) = flow {
+        val response = repository.getStarship(id).asDomainModel()
         emit(response)
     }
 }

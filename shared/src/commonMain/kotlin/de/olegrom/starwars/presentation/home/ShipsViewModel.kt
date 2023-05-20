@@ -15,7 +15,7 @@ class ShipsViewModel(private val getStarshipsUseCase: GetStarshipsUseCase) : Vie
     var state = _state.asStateFlow()
     private var page: Int = 1
     fun onIntent(intent: AllScreensSideEvent) {
-        if (intent is AllScreensSideEvent.GetShips) {
+        if (intent is AllScreensSideEvent.GetStarships) {
             getShips()
         }
     }

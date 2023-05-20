@@ -2,7 +2,6 @@ package de.olegrom.starwars.android.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,7 @@ fun ShipsScreen(modifier: Modifier,
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetShips)
+        viewModel.onIntent(AllScreensSideEvent.GetStarships)
     }
     LazyVerticalGrid(
         modifier = modifier.fillMaxHeight(),

@@ -24,7 +24,7 @@ actual fun platformModule() = module {
     single {
         ShipsViewModel(get())
     }
-    factory {
-        FilmDetailsViewModel()
+    single {
+        FilmDetailsViewModel(get())
     }
 }
