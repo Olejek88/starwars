@@ -4,6 +4,6 @@ object EndPoints {
     const val FILMS = "films"
     const val STARSHIPS = "starships"
     const val PLANETS = "planets"
-    const val PEOPLES = "peoples"
+    const val PEOPLES = "people"
 }
 

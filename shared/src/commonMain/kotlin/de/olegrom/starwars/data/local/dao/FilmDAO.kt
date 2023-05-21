@@ -7,5 +7,5 @@ open class FilmDAO() {
     var director: String = "George Lucas"
     var producer: String = "Gary Kurtz, Rick McCallum"
     var releaseDate: String = "1977-05-25"
-    // TODO add other fields
+    var url: String = ""
 }

@@ -3,6 +3,8 @@ package de.olegrom.starwars
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.FilmsViewModel
+import de.olegrom.starwars.presentation.home.PersonsViewModel
+import de.olegrom.starwars.presentation.home.PlanetsViewModel
 import de.olegrom.starwars.presentation.home.ShipsViewModel
 import org.koin.dsl.module
 import io.ktor.client.engine.darwin.*
@@ -24,6 +26,12 @@ actual fun platformModule() = module {
     }
     single {
         ShipsViewModel(get())
+    }
+    single {
+        PlanetsViewModel(get())
+    }
+    single {
+        PersonsViewModel(get())
     }
     single {
         FilmDetailsViewModel(get())

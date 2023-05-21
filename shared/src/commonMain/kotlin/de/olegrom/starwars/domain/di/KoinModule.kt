@@ -7,6 +7,8 @@ import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
 import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetPersonsUseCase
+import de.olegrom.starwars.domain.usecase.lists.GetPlanetsUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetStarshipsUseCase
 import de.olegrom.starwars.platformModule
 import org.koin.core.context.startKoin
@@ -82,6 +84,12 @@ fun getUseCaseModule() = module {
     }
     single {
         GetStarshipUseCase(get())
+    }
+    single {
+        GetPersonsUseCase(get())
+    }
+    single {
+        GetPlanetsUseCase(get())
     }
 }
 
