@@ -88,6 +88,10 @@ private fun getTabActive(currentTab: String, currentRoute: String?): String {
         Screen.Starships.route,
         Screen.Planets.route,
         Screen.Peoples.route -> currentRoute
+        Screen.Film.route -> Screen.Films.route
+        Screen.Starship.route -> Screen.Starships.route
+        Screen.Planet.route -> Screen.Planets.route
+        Screen.People.route -> Screen.Peoples.route
         else -> currentTab
     }
 }
