@@ -68,7 +68,7 @@ fun FilmsScreen(modifier: Modifier,
                         ) {
                             navController.navigate(
                                 Screen.Film.route.replace(
-                                    "{filmId}", index.toString())
+                                    "{filmId}", (index+1).toString())
                             )
                         }
                     }

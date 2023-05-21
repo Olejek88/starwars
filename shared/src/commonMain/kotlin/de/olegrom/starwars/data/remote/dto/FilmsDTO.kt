@@ -14,13 +14,11 @@ data class FilmsDTO(
 data class FilmDTO(
     val title: String = "Undefined",
     var episode_id: Int = 2,
-    var openingCrawl: String = "",
+    var opening_crawl: String = "",
     var director: String = "",
     var producer: String = "",
-    var release_date: String = ""
-    //var characters: List<> = listOf(),
-    //var planets: List<> = listOf(),
-    //var starships: List<> = listOf(),
+    var release_date: String = "",
+    var starships: List<String> = listOf(),
 )
 
 fun FilmsDTO.asDomainModel(): List<FilmDomainModel> {
@@ -33,9 +31,9 @@ fun FilmDTO.asDomainModel(): FilmDomainModel {
     return FilmDomainModel(
             title = this.title,
             episodeId = this.episode_id,
-            openingCrawl = this.openingCrawl,
+            openingCrawl = this.opening_crawl,
             director = this.director,
             producer = this.producer,
-            releaseDate = this.release_date
+            releaseDate = this.release_date,
         )
 }

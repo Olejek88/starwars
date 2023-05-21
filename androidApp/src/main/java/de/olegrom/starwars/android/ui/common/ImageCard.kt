@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,8 +32,11 @@ fun ImageCard(
             .clip(shape = RoundedCornerShape(size = 10.dp)),
     ) {
         Column(
-            Modifier.background(color = backgroundColor ?: Color(0xff63cee8)).fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(10.dp,
+            Modifier
+                .background(color = backgroundColor ?: MaterialTheme.colorScheme.onBackground)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(
+                10.dp,
                 alignment = Alignment.Top
             ),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -40,7 +44,9 @@ fun ImageCard(
             Spacer(modifier = Modifier.height(5.dp))
             AsyncImage(
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(100.dp).clip(RoundedCornerShape(10.dp)),
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(RoundedCornerShape(10.dp)),
                 model = ImageRequest.Builder(
                     LocalContext.current
                 ).scale(Scale.FILL).data(imageUrl).crossfade(true).build(),

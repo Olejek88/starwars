@@ -28,7 +28,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
         val listener = NavController.OnDestinationChangedListener { controller, _, _ ->
             canPop = false
             controller.currentBackStackEntry?.destination?.route?.let {
-                currentTitle.value = it
+                currentTitle.value = getLabelByRoute(it)
                 canPop = (it != Screen.Planets.route)
                         && (it != Screen.Films.route)
                         && (it != Screen.Peoples.route)
@@ -95,13 +95,12 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
     }
 }
 
-@Composable
 fun getLabelByRoute(route: String): String {
     return when (route) {
-        Screen.Films.route -> stringResource(R.string.films)
-        Screen.Starships.route -> stringResource(R.string.starships)
-        Screen.Peoples.route -> stringResource(R.string.persons)
-        Screen.Planets.route -> stringResource(R.string.planets)
-        else -> stringResource(R.string.app_name)
+        Screen.Films.route -> "Films"
+        Screen.Starships.route -> "Starships"
+        Screen.Peoples.route -> "Persons"
+        Screen.Planets.route -> "Planets"
+        else -> "Star Wars"
     }
 }

@@ -36,7 +36,7 @@ fun KeyValueRow(
         Text(
             text = key,
             style = MaterialTheme.typography.bodyMedium,
-            color = color ?: MaterialTheme.colorScheme.onSurface
+            color = color ?: MaterialTheme.colorScheme.primary
         )
         Spacer(Modifier.weight(1f))
         Text(

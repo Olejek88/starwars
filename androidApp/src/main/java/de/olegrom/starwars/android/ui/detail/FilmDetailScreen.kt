@@ -19,7 +19,6 @@ import de.olegrom.starwars.android.ui.common.ImageCard
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
 import de.olegrom.starwars.android.ui.common.TextCard
-import de.olegrom.starwars.android.ui.detail.widgets.EntitiesListCard
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.FilmScreenState
@@ -56,8 +55,10 @@ fun FilmDetailScreen(
                 SectionHeader(title = film.title, film.director)
                 ImageCard(StarWarsApp.FILM_URL)
                 TextCard(film.openingCrawl)
-                ParametersCard(listOf(Pair("Director", film.director)))
-                EntitiesListCard(listOf()) {}
+                ParametersCard(listOf(Pair("Director", film.director),
+                    Pair("Producer", film.producer),
+                    Pair("Release date", film.releaseDate)))
+                //EntitiesListCard(listOf()) {}
             }
         }
     }
