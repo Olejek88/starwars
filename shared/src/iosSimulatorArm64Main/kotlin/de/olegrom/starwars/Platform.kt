@@ -1,5 +1,6 @@
 package de.olegrom.starwars
 
+/*
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.home.FilmsViewModel
 import de.olegrom.starwars.presentation.home.ShipsViewModel
@@ -29,4 +30,4 @@ actual fun platformModule() = module {
     }
 }
 
-actual interface CommonParcelable
+actual interface CommonParcelable*/

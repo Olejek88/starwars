@@ -28,3 +28,4 @@ actual fun platformModule() = module {
         FilmDetailsViewModel(get())
     }
 }
+actual interface CommonParcelable
