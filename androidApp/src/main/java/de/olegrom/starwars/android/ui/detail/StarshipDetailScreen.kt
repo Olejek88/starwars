@@ -20,21 +20,23 @@ import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
 import de.olegrom.starwars.android.ui.common.TextCard
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
+import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
+import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FilmDetailScreen(
-    filmId: String,
+fun StarshipDetailScreen(
+    starshipId: String,
     navController: NavHostController,
     modifier: Modifier,
-    viewModel: FilmDetailsViewModel = getViewModel()
+    viewModel: StarshipDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetFilm(filmId))
+        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
     }
     Column(
         modifier = modifier
@@ -45,20 +47,26 @@ fun FilmDetailScreen(
         when (state) {
             is DetailScreenState.Error -> {
                 Text(
-                    text = (state as DetailScreenState.Error).errorMessage ?: "",
+                    text = (state as DetailScreenState.Error).errorMessage,
                     style = MaterialTheme.typography.headlineMedium
                 )
             }
             DetailScreenState.Idle -> {}
             DetailScreenState.Loading -> {}
             is DetailScreenState.Success -> {
-                val film = (state as DetailScreenState.Success).entity as FilmDomainModel
-                SectionHeader(title = film.title, film.director)
-                ImageCard(StarWarsApp.FILM_URL)
-                TextCard(film.openingCrawl)
-                ParametersCard(listOf(Pair("Director", film.director),
-                    Pair("Producer", film.producer),
-                    Pair("Release date", film.releaseDate)))
+                val starship = (state as DetailScreenState.Success).entity as StarshipDomainModel
+                SectionHeader(title = starship.name, starship.model)
+                ImageCard(StarWarsApp.STARSHIP_URL)
+                ParametersCard(listOf(Pair("Manufacturer", starship.manufacturer),
+                    Pair("Starship class", starship.starshipClass),
+                    Pair("Cargo capacity", starship.cargoCapacity),
+                    Pair("Consumables", starship.consumables),
+                    Pair("Cost", starship.cost),
+                    Pair("Crew", starship.crew),
+                    Pair("Max atmosphering speed", starship.maxAtmospheringSpeed),
+                    Pair("Hyperdrive", starship.hyperdriveRating),
+                    Pair("Passengers", starship.passengers)
+                ))
                 //EntitiesListCard(listOf()) {}
             }
         }

@@ -12,18 +12,18 @@ data class StarshipsDTO(
 
 @kotlinx.serialization.Serializable
 data class StarshipDTO(
-    var name: String,
-    var model: String,
-    var manufacturer: String,
-    var cost_in_credits: String,
-    var length: String,
-    var max_atmosphering_speed: String,
-    var crew: String,
-    var passengers: String,
-    var cargo_capacity: String,
-    var consumables: String,
-    var hyperdrive_rating: String,
-    var starship_class: String,
+    var name: String = "",
+    var model: String = "",
+    var manufacturer: String = "",
+    var cost_in_credits: String = "",
+    var length: String = "",
+    var max_atmosphering_speed: String = "",
+    var crew: String = "",
+    var passengers: String = "",
+    var cargo_capacity: String = "",
+    var consumables: String = "",
+    var hyperdrive_rating: String = "",
+    var starship_class: String = "",
 )
 
 fun StarshipsDTO.asDomainModel(): List<StarshipDomainModel> {

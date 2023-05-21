@@ -1,9 +1,10 @@
 package de.olegrom.starwars.presentation.detail
 
-import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
+import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
 import de.olegrom.starwars.domain.util.Result
 import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
+import de.olegrom.starwars.presentation.home.DetailEntity
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,18 +13,18 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FilmDetailsViewModel(private val getFilmUseCase: GetFilmUseCase) : ViewModel() {
+class StarshipDetailsViewModel(private val getStarshipUseCase: GetStarshipUseCase) : ViewModel() {
     private val _state = MutableStateFlow<DetailScreenState>(DetailScreenState.Idle)
     var state = _state.asStateFlow()
     fun onIntent(intent: AllScreensSideEvent) {
-        if (intent is AllScreensSideEvent.GetFilm) {
-            getFilm(intent.id)
+        if (intent is AllScreensSideEvent.GetStarship) {
+            getStarship(intent.id)
         }
     }
 
-    private fun getFilm(id: String) {
+    private fun getStarship(id: String) {
         viewModelScope.launch {
-            getFilmUseCase.invoke(id).asResult().collectLatest { result ->
+            getStarshipUseCase.invoke(id).asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         _state.update {

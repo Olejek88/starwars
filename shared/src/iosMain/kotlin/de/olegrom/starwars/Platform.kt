@@ -1,6 +1,7 @@
 package de.olegrom.starwars
 
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
+import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.FilmsViewModel
 import de.olegrom.starwars.presentation.home.ShipsViewModel
 import org.koin.dsl.module
@@ -26,6 +27,9 @@ actual fun platformModule() = module {
     }
     single {
         FilmDetailsViewModel(get())
+    }
+    single {
+        StarshipDetailsViewModel(get())
     }
 }
 actual interface CommonParcelable

@@ -12,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import de.olegrom.starwars.android.StarWarsApp
+import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.presentation.home.*
 import org.koin.androidx.compose.getViewModel
@@ -53,14 +55,19 @@ fun ShipsScreen(modifier: Modifier,
 
             }
             is ShipsScreenState.Success -> {
-                (state as ShipsScreenState.Success).ships.forEach { item ->
+                (state as ShipsScreenState.Success).ships.forEachIndexed { index, item ->
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
-                            "https://static.wikia.nocookie.net/starwars/images/7/70/DSI-HDapproach.png/revision/latest?cb=20130221005853",
+                            StarWarsApp.STARSHIP_URL,
                             item.model,
                             "Manufacturer: ${item.manufacturer}",
                             "Cost: ${item.cost}"
-                        )
+                        ) {
+                            navController.navigate(
+                                Screen.Starship.route.replace(
+                                    "{starshipId}", (index+1).toString())
+                            )
+                        }
                     }
                 }
             }

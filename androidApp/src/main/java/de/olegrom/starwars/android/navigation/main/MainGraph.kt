@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
+import de.olegrom.starwars.android.ui.detail.StarshipDetailScreen
 import de.olegrom.starwars.android.ui.home.FilmsScreen
 import de.olegrom.starwars.android.ui.home.ShipsScreen
 
@@ -35,6 +36,12 @@ fun MainGraph(
             val filmId = it.arguments?.getString("filmId")
             filmId?.let { id->
                 FilmDetailScreen(id, navController, modifier)
+            }
+        }
+        composable(Screen.Starship.route) {
+            val starshipId = it.arguments?.getString("starshipId")
+            starshipId?.let { id->
+                StarshipDetailScreen(id, navController, modifier)
             }
         }
     }

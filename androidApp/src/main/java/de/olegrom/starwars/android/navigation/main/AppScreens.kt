@@ -6,5 +6,5 @@ sealed class Screen(val route: String) {
     object Peoples : Screen("peoples")
     object Planets : Screen("planets")
     object Starships : Screen("starships")
-    object Starship : Screen("starship")
+    object Starship : Screen("starship/{starshipId}")
 }
