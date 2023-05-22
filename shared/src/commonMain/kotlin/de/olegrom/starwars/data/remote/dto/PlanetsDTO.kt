@@ -20,7 +20,8 @@ data class PlanetDTO(
     var gravity: String = "",
     var terrain: String = "",
     var surface_water: String = "",
-    var population: String = ""
+    var population: String = "",
+    var url: String = "",
 )
 
 fun PlanetsDTO.asDomainModel(): List<PlanetDomainModel> {
@@ -40,5 +41,6 @@ fun PlanetDTO.asDomainModel(): PlanetDomainModel {
             terrain = this.terrain,
             surfaceWater = this.surface_water,
             population = this.population,
+            url = this.url
         )
 }

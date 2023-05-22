@@ -18,6 +18,7 @@ data class StarshipDomainModel(
     var consumables: String,
     var hyperdriveRating: String,
     var starshipClass: String,
+    var url: String
 ) : CommonParcelable
 
 fun StarshipDomainModel.asDao(): StarshipDAO {
@@ -34,6 +35,7 @@ fun StarshipDomainModel.asDao(): StarshipDAO {
         it.consumables = this.consumables
         it.hyperdriveRating = this.hyperdriveRating
         it.starshipClass = this.starshipClass
+        it.url = this.url
     }
 }
 

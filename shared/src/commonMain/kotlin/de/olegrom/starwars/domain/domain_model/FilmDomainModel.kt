@@ -11,7 +11,8 @@ data class FilmDomainModel(
     var openingCrawl: String = "",
     var director: String = "",
     var producer: String = "",
-    var releaseDate: String = ""
+    var releaseDate: String = "",
+    var url: String = "",
 ) : CommonParcelable
 
 fun FilmDomainModel.asDao(): FilmDAO {
@@ -22,6 +23,7 @@ fun FilmDomainModel.asDao(): FilmDAO {
         it.director = this.director
         it.producer = this.producer
         it.releaseDate = this.releaseDate
+        it.url = this.url
     }
 }
 

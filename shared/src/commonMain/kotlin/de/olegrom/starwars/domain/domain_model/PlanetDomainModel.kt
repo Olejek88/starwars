@@ -15,7 +15,8 @@ data class PlanetDomainModel(
     var gravity: String,
     var terrain: String,
     var surfaceWater: String,
-    var population: String
+    var population: String,
+    var url: String
 ) : CommonParcelable
 
 fun PlanetDomainModel.asDao(): PlanetDAO {
@@ -29,6 +30,7 @@ fun PlanetDomainModel.asDao(): PlanetDAO {
         it.terrain = this.terrain
         it.surfaceWater = this.surfaceWater
         it.population = this.population
+        it.url = this.url
     }
 }
 

@@ -18,10 +18,7 @@ import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.ui.common.ImageCard
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
-import de.olegrom.starwars.android.ui.common.TextCard
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
-import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
@@ -29,14 +26,14 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun StarshipDetailScreen(
-    starshipId: String,
+    starshipUrl: String,
     navController: NavHostController,
     modifier: Modifier,
     viewModel: StarshipDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
+        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipUrl))
     }
     Column(
         modifier = modifier

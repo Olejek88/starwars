@@ -47,7 +47,6 @@ fun ShipsScreen(modifier: Modifier,
                         style = MaterialTheme.typography.headlineMedium
                     )
                 }
-
             }
             ShipsScreenState.Idle -> {}
             ShipsScreenState.Loading -> {
@@ -65,7 +64,7 @@ fun ShipsScreen(modifier: Modifier,
                         ) {
                             navController.navigate(
                                 Screen.Starship.route.replace(
-                                    "{starshipId}", (index+1).toString())
+                                    "{starshipUrl}", item.url)
                             )
                         }
                     }

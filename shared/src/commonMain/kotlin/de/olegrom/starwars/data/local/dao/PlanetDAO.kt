@@ -10,4 +10,5 @@ open class PlanetDAO() {
     var terrain: String ="desert"
     var surfaceWater: String ="1"
     var population: String ="200000"
+    var url: String = ""
 }

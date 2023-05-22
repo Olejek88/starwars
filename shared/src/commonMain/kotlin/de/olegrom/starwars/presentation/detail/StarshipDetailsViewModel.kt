@@ -4,7 +4,6 @@ import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
 import de.olegrom.starwars.domain.util.Result
 import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
-import de.olegrom.starwars.presentation.home.DetailEntity
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +17,7 @@ class StarshipDetailsViewModel(private val getStarshipUseCase: GetStarshipUseCas
     var state = _state.asStateFlow()
     fun onIntent(intent: AllScreensSideEvent) {
         if (intent is AllScreensSideEvent.GetStarship) {
-            getStarship(intent.id)
+            getStarship(intent.url)
         }
     }
 

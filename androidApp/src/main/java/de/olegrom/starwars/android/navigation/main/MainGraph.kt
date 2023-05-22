@@ -35,14 +35,14 @@ fun MainGraph(
             PlanetsScreen(modifier, navController)
         }
         composable(Screen.Film.route) {
-            val filmId = it.arguments?.getString("filmId")
-            filmId?.let { id->
+            val filmUrl = it.arguments?.getString("filmUrl")
+            filmUrl?.let { id->
                 FilmDetailScreen(id, navController, modifier)
             }
         }
         composable(Screen.Starship.route) {
-            val starshipId = it.arguments?.getString("starshipId")
-            starshipId?.let { id->
+            val starshipUrl = it.arguments?.getString("starshipUrl")
+            starshipUrl?.let { id->
                 StarshipDetailScreen(id, navController, modifier)
             }
         }

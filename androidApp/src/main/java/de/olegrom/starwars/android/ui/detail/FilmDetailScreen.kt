@@ -27,14 +27,14 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun FilmDetailScreen(
-    filmId: String,
+    filmUrl: String,
     navController: NavHostController,
     modifier: Modifier,
     viewModel: FilmDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetFilm(filmId))
+        viewModel.onIntent(AllScreensSideEvent.GetFilm(filmUrl))
     }
     Column(
         modifier = modifier

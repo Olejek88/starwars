@@ -24,6 +24,7 @@ data class StarshipDTO(
     var consumables: String = "",
     var hyperdrive_rating: String = "",
     var starship_class: String = "",
+    var url: String = ""
 )
 
 fun StarshipsDTO.asDomainModel(): List<StarshipDomainModel> {
@@ -46,5 +47,6 @@ fun StarshipDTO.asDomainModel(): StarshipDomainModel {
         consumables = this.consumables,
         hyperdriveRating = this.hyperdrive_rating,
         starshipClass = this.starship_class,
+        url = this.url
     )
 }

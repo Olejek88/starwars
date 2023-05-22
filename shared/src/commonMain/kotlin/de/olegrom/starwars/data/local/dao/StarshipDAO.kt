@@ -13,4 +13,5 @@ open class StarshipDAO() {
     var consumables: String = ""
     var hyperdriveRating: String = ""
     var starshipClass: String = ""
+    var url: String = ""
 }
