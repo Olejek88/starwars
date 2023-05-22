@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -16,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import de.olegrom.starwars.android.R
 import de.olegrom.starwars.android.navigation.main.MainGraph
 import de.olegrom.starwars.android.navigation.main.Screen
+import de.olegrom.starwars.android.utils.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,7 +50,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
                         Text(
                             currentTitle.value,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().testTag(TestTag.appBarTitle),
                             style = MaterialTheme.typography.titleMedium
                         )
                     },

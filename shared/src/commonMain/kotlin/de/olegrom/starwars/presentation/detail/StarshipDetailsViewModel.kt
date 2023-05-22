@@ -17,7 +17,7 @@ class StarshipDetailsViewModel(private val getStarshipUseCase: GetStarshipUseCas
     var state = _state.asStateFlow()
     fun onIntent(intent: AllScreensSideEvent) {
         if (intent is AllScreensSideEvent.GetStarship) {
-            getStarship(intent.url)
+            getStarship(intent.id)
         }
     }
 

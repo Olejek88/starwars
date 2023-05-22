@@ -1,5 +1,11 @@
 # Star Wars project
 TODO
+<p>What're inside?
+<br>- Jetpack Compose
+<br>- Ktor Framework
+<br>- Material3
+<br>- Coil
+</p>
 
 # How to setup the project
 ## Install KMM

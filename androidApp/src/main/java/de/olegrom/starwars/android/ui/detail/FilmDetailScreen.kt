@@ -28,7 +28,6 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun FilmDetailScreen(
     filmId: String,
-    navController: NavHostController,
     modifier: Modifier,
     viewModel: FilmDetailsViewModel = getViewModel()
 ) {

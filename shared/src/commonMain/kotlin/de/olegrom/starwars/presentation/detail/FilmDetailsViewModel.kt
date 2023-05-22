@@ -17,7 +17,7 @@ class FilmDetailsViewModel(private val getFilmUseCase: GetFilmUseCase) : ViewMod
     var state = _state.asStateFlow()
     fun onIntent(intent: AllScreensSideEvent) {
         if (intent is AllScreensSideEvent.GetFilm) {
-            getFilm(intent.url)
+            getFilm(intent.id)
         }
     }
 

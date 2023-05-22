@@ -33,6 +33,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+/*
+                with(Compose) {
+                    implementation(composeUI)
+                    implementation(composeMaterial)
+                    implementation(composeActivity)
+                    implementation(util)
+                }
+*/
                 with(Ktor) {
                     implementation(clientCore)
                     implementation(clientJson)
@@ -66,6 +74,11 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+                with(Ktor) {
+                    implementation(clientMock)
+                    implementation(contentNegotiation)
+                }
             }
         }
         val androidTest by getting
@@ -90,6 +103,9 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        all {
+            languageSettings.optIn("-Xopt-in=kotlin.RequiresOptIn")
+        }
     }
 }
 
@@ -100,5 +116,9 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 33
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }

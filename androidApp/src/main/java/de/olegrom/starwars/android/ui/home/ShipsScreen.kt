@@ -43,7 +43,7 @@ fun ShipsScreen(modifier: Modifier,
             is ShipsScreenState.Error -> {
                 item {
                     Text(
-                        text = (state as ShipsScreenState.Error).errorMessage ?: "",
+                        text = (state as ShipsScreenState.Error).errorMessage,
                         style = MaterialTheme.typography.headlineMedium
                     )
                 }

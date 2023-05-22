@@ -22,7 +22,14 @@ android {
     buildFeatures {
         compose = true
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+        freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
@@ -46,7 +53,6 @@ dependencies {
     implementation(project(":shared"))
 
     with(ComposeDestination) {
-
         implementation(composeDestination)
         ksp(composeDestinationPlugin)
     }
@@ -74,4 +80,12 @@ dependencies {
     }
 
     implementation(Koin.koinAndroid)
+
+    // To use the androidx.test.runner APIs
+    //androidTestImplementation("androidx.test:runner:1.5.2")
+    //androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
+    // Needed for createComposeRule, but not createAndroidComposeRule:
+    //debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
+    //testImplementation("androidx.arch.core:core-testing:2.2.0")
+    //testImplementation("androidx.test:core:1.5.0")
 }

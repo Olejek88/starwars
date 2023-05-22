@@ -45,7 +45,7 @@ fun PlanetsScreen(modifier: Modifier,
             is ListScreenState.Error -> {
                 item {
                     Text(
-                        text = (state as ListScreenState.Error).errorMessage ?: "",
+                        text = (state as ListScreenState.Error).errorMessage,
                         style = MaterialTheme.typography.headlineMedium
                     )
                 }

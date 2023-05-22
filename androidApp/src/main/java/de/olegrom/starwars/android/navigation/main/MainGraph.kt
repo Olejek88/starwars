@@ -37,7 +37,7 @@ fun MainGraph(
         composable(Screen.Film.route) {
             val filmId = it.arguments?.getString("filmId")
             filmId?.let { id->
-                FilmDetailScreen(id, navController, modifier)
+                FilmDetailScreen(id, modifier)
             }
         }
         composable(Screen.Starship.route) {

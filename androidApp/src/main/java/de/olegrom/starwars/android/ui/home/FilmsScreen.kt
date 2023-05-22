@@ -46,7 +46,7 @@ fun FilmsScreen(modifier: Modifier,
             is FilmsScreenState.Error -> {
                 item {
                     Text(
-                        text = (state as FilmsScreenState.Error).errorMessage ?: "",
+                        text = (state as FilmsScreenState.Error).errorMessage,
                         style = MaterialTheme.typography.headlineMedium
                     )
                 }

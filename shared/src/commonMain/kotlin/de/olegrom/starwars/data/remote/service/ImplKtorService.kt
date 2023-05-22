@@ -18,4 +18,3 @@ class ImplKtorService(
     override suspend fun getPerson(id: String): PersonDTO = httpClient.get("$baseUrl/${EndPoints.PEOPLES}/${id}") {}.body()
     override suspend fun getPlanet(id: String): PlanetDTO = httpClient.get("$baseUrl/${EndPoints.PLANETS}/${id}") {}.body()
 }
-
