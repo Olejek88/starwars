@@ -26,14 +26,14 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun StarshipDetailScreen(
-    starshipUrl: String,
+    starshipId: String,
     navController: NavHostController,
     modifier: Modifier,
     viewModel: StarshipDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipUrl))
+        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
     }
     Column(
         modifier = modifier

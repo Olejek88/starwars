@@ -66,10 +66,14 @@ fun FilmsScreen(modifier: Modifier,
                             "Director: ${item.director}, Producer: ${item.producer}",
                             "Release date: ${item.releaseDate}"
                         ) {
-                            navController.navigate(
-                                Screen.Film.route.replace(
-                                    "{filmUrl}", item.url)
-                            )
+                            val params = item.url.split("/")
+                            // TODO user regex
+                            if (params.size>=2) {
+                                val id = params[params.size-2];
+                                navController.navigate(
+                                    Screen.Film.route.replace("{filmId}", id)
+                                )
+                            }
                         }
                     }
                 }

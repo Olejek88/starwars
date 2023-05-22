@@ -62,10 +62,14 @@ fun ShipsScreen(modifier: Modifier,
                             "Manufacturer: ${item.manufacturer}",
                             "Cost: ${item.cost}"
                         ) {
-                            navController.navigate(
-                                Screen.Starship.route.replace(
-                                    "{starshipUrl}", item.url)
-                            )
+                            val params = item.url.split("/")
+                            // TODO user regex
+                            if (params.size>=2) {
+                                val id = params[params.size-2];
+                                navController.navigate(
+                                    Screen.Starship.route.replace("{starshipId}", id)
+                                )
+                            }
                         }
                     }
                 }

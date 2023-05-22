@@ -19,6 +19,7 @@ data class FilmDTO(
     var producer: String = "",
     var release_date: String = "",
     var starships: List<String> = listOf(),
+    var url: String = ""
 )
 
 fun FilmsDTO.asDomainModel(): List<FilmDomainModel> {
@@ -35,5 +36,6 @@ fun FilmDTO.asDomainModel(): FilmDomainModel {
             director = this.director,
             producer = this.producer,
             releaseDate = this.release_date,
+            url = this.url
         )
 }
