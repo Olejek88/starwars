@@ -5,6 +5,8 @@ import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.AbstractRepository
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
+import de.olegrom.starwars.domain.usecase.detail.GetPersonUseCase
+import de.olegrom.starwars.domain.usecase.detail.GetPlanetUseCase
 import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetPersonsUseCase
@@ -90,6 +92,12 @@ fun getUseCaseModule() = module {
     }
     single {
         GetPlanetsUseCase(get())
+    }
+    single {
+        GetPlanetUseCase(get())
+    }
+    single {
+        GetPersonUseCase(get())
     }
 }
 

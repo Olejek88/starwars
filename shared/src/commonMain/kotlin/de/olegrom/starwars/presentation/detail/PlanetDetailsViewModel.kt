@@ -1,6 +1,6 @@
 package de.olegrom.starwars.presentation.detail
 
-import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
+import de.olegrom.starwars.domain.usecase.detail.GetPlanetUseCase
 import de.olegrom.starwars.domain.util.Result
 import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
@@ -12,17 +12,17 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FilmDetailsViewModel(private val getFilmUseCase: GetFilmUseCase) : ViewModel() {
+class PlanetDetailsViewModel(private val getPlanetUseCase: GetPlanetUseCase) : ViewModel() {
     private val _state = MutableStateFlow<DetailScreenState>(DetailScreenState.Idle)
     var state = _state.asStateFlow()
     fun onIntent(intent: AllScreensSideEvent) {
-        if (intent is AllScreensSideEvent.GetFilm) {
-            getFilm(intent.id)
+        if (intent is AllScreensSideEvent.GetPlanet) {
+            getPlanet(intent.id)
         }
     }
-    private fun getFilm(id: String) {
+    private fun getPlanet(id: String) {
         viewModelScope.launch {
-            getFilmUseCase.invoke(id).asResult().collectLatest { result ->
+            getPlanetUseCase.invoke(id).asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         _state.update {

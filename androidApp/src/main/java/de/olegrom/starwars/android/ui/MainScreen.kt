@@ -8,13 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import de.olegrom.starwars.android.R
 import de.olegrom.starwars.android.navigation.main.MainGraph
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.utils.TestTag
@@ -33,7 +31,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
                 currentTitle.value = getLabelByRoute(it)
                 canPop = (it != Screen.Planets.route)
                         && (it != Screen.Films.route)
-                        && (it != Screen.Peoples.route)
+                        && (it != Screen.Persons.route)
                         && (it != Screen.Starships.route)
             }
         }
@@ -101,7 +99,7 @@ fun getLabelByRoute(route: String): String {
     return when (route) {
         Screen.Films.route -> "Films"
         Screen.Starships.route -> "Starships"
-        Screen.Peoples.route -> "Persons"
+        Screen.Persons.route -> "Persons"
         Screen.Planets.route -> "Planets"
         else -> "Star Wars"
     }

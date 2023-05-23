@@ -13,6 +13,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
@@ -82,10 +83,10 @@ dependencies {
     implementation(Koin.koinAndroid)
 
     // To use the androidx.test.runner APIs
-    //androidTestImplementation("androidx.test:runner:1.5.2")
-    //androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
     // Needed for createComposeRule, but not createAndroidComposeRule:
-    //debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
-    //testImplementation("androidx.arch.core:core-testing:2.2.0")
-    //testImplementation("androidx.test:core:1.5.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("androidx.test:core:1.5.0")
 }

@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
+import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
+import de.olegrom.starwars.android.ui.detail.PlanetDetailScreen
 import de.olegrom.starwars.android.ui.detail.StarshipDetailScreen
 import de.olegrom.starwars.android.ui.home.FilmsScreen
 import de.olegrom.starwars.android.ui.home.PersonsScreen
@@ -25,7 +27,7 @@ fun MainGraph(
         composable(Screen.Films.route) {
             FilmsScreen(modifier, navController)
         }
-        composable(Screen.Peoples.route) {
+        composable(Screen.Persons.route) {
             PersonsScreen(modifier, navController)
         }
         composable(Screen.Starships.route) {
@@ -43,7 +45,19 @@ fun MainGraph(
         composable(Screen.Starship.route) {
             val starshipId = it.arguments?.getString("starshipId")
             starshipId?.let { id->
-                StarshipDetailScreen(id, navController, modifier)
+                StarshipDetailScreen(id, modifier)
+            }
+        }
+        composable(Screen.Person.route) {
+            val personId = it.arguments?.getString("personId")
+            personId?.let { id->
+                PersonDetailScreen(id, modifier)
+            }
+        }
+        composable(Screen.Planet.route) {
+            val planetId = it.arguments?.getString("planetId")
+            planetId?.let { id->
+                PlanetDetailScreen(id, modifier)
             }
         }
     }

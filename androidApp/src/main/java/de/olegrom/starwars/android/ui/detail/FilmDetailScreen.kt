@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
@@ -19,6 +20,7 @@ import de.olegrom.starwars.android.ui.common.ImageCard
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
 import de.olegrom.starwars.android.ui.common.TextCard
+import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
@@ -37,6 +39,7 @@ fun FilmDetailScreen(
     }
     Column(
         modifier = modifier
+            .testTag(TestTag.detailView)
             .padding(horizontal = 10.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -52,7 +55,8 @@ fun FilmDetailScreen(
             DetailScreenState.Loading -> {}
             is DetailScreenState.Success -> {
                 val film = (state as DetailScreenState.Success).entity as FilmDomainModel
-                SectionHeader(title = film.title, film.director)
+                SectionHeader(modifier = Modifier.testTag(TestTag.detailHeader),
+                    title = film.title, film.director)
                 ImageCard(StarWarsApp.FILM_URL)
                 TextCard(film.openingCrawl)
                 ParametersCard(listOf(Pair("Director", film.director),

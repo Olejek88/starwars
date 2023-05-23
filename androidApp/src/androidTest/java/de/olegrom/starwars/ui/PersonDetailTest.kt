@@ -7,28 +7,29 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import de.olegrom.starwars.android.MainActivity
 import de.olegrom.starwars.android.theme.StarWarsTheme
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
+import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.data.remote.dto.FilmDTO
 import de.olegrom.starwars.data.remote.service.FakeKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
+import de.olegrom.starwars.domain.usecase.detail.GetPersonUseCase
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
+import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class FilmDetailTest {
-    lateinit var film: FilmDTO
-
+class PersonDetailTest {
     @get:Rule
     val composeRule = createAndroidComposeRule(MainActivity::class.java)
 
     @Before
     fun setUp() {
-        val viewModel = FilmDetailsViewModel(GetFilmUseCase(ImplRepository(FakeKtorService())))
+        val viewModel = PersonDetailsViewModel(GetPersonUseCase(ImplRepository(FakeKtorService())))
         composeRule.activity.setContent {
             StarWarsTheme {
-                FilmDetailScreen("4", modifier = Modifier, viewModel = viewModel)
+                PersonDetailScreen("4", modifier = Modifier, viewModel = viewModel)
             }
         }
     }

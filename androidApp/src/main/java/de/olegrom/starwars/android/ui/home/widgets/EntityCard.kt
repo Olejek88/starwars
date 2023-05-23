@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
+import de.olegrom.starwars.android.utils.TestTag
 
 @Composable
 fun EntityCard(
@@ -31,7 +33,8 @@ fun EntityCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { itemClick() }
-            .clip(shape = RoundedCornerShape(size = 10.dp)),
+            .clip(shape = RoundedCornerShape(size = 10.dp))
+            .testTag(TestTag.listElement),
     ) {
         Row(
             Modifier.fillMaxWidth().padding(10.dp),

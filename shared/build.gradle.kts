@@ -64,13 +64,6 @@ kotlin {
                 }
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(Ktor.clientAndroid)
-                implementation(Koin.koinAndroid)
-
-            }
-        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -79,6 +72,12 @@ kotlin {
                     implementation(clientMock)
                     implementation(contentNegotiation)
                 }
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Ktor.clientAndroid)
+                implementation(Koin.koinAndroid)
             }
         }
         val androidTest by getting
