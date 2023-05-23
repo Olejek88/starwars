@@ -1,7 +1,6 @@
 package de.olegrom.starwars.presentation.home
 
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
-import de.olegrom.starwars.domain.usecase.lists.GetStarshipsUseCase
 import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.domain.util.Result
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
-    private val _state = MutableStateFlow<FilmsScreenState>(FilmsScreenState.Idle)
+    private val _state = MutableStateFlow<ListScreenState>(ListScreenState.Idle)
     var state = _state.asStateFlow()
     private var page: Int = 1
     fun onIntent(intent: AllScreensSideEvent) {
@@ -27,27 +26,27 @@ class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel()
                 when (result) {
                     is Result.Error -> {
                         _state.update {
-                            FilmsScreenState.Error(result.exception.message)
+                            ListScreenState.Error(result.exception.message)
                         }
                     }
                     Result.Idle -> {
                         _state.update {
-                            FilmsScreenState.Idle
+                            ListScreenState.Idle
                         }
                     }
                     Result.Loading -> {
                         _state.update {
-                            FilmsScreenState.Loading
+                            ListScreenState.Loading
                         }
                     }
                     is Result.Success -> {
                         if (page == 1) {
                             _state.update {
-                                FilmsScreenState.Success(result.data)
+                                ListScreenState.Success(result.data)
                             }
                         } else {
                             _state.update {
-                                (it as FilmsScreenState.Success).copy(films = it.films + result.data)
+                                (it as ListScreenState.Success).copy(entities = it.entities + result.data)
                             }
                         }
                     }

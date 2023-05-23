@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ShipsViewModel(private val getStarshipsUseCase: GetStarshipsUseCase) : ViewModel() {
-    private val _state = MutableStateFlow<ShipsScreenState>(ShipsScreenState.Idle)
+    private val _state = MutableStateFlow<ListScreenState>(ListScreenState.Idle)
     var state = _state.asStateFlow()
     private var page: Int = 1
     fun onIntent(intent: AllScreensSideEvent) {
@@ -26,27 +26,27 @@ class ShipsViewModel(private val getStarshipsUseCase: GetStarshipsUseCase) : Vie
                 when (result) {
                     is Result.Error -> {
                         _state.update {
-                            ShipsScreenState.Error(result.exception.message)
+                            ListScreenState.Error(result.exception.message)
                         }
                     }
                     Result.Idle -> {
                         _state.update {
-                            ShipsScreenState.Idle
+                            ListScreenState.Idle
                         }
                     }
                     Result.Loading -> {
                         _state.update {
-                            ShipsScreenState.Loading
+                            ListScreenState.Loading
                         }
                     }
                     is Result.Success -> {
                         if (page == 1) {
                             _state.update {
-                                ShipsScreenState.Success(result.data)
+                                ListScreenState.Success(result.data)
                             }
                         } else {
                             _state.update {
-                                (it as ShipsScreenState.Success).copy(ships = it.ships + result.data)
+                                (it as ListScreenState.Success).copy(entities = it.entities + result.data)
                             }
                         }
                     }

@@ -15,7 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
+import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
+import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
 import de.olegrom.starwars.presentation.home.*
 import kotlinx.coroutines.flow.update
@@ -46,21 +48,14 @@ fun PlanetsScreen(modifier: Modifier,
         item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
         when (state) {
             is ListScreenState.Error -> {
-                item {
-                    Text(
-                        text = (state as ListScreenState.Error).errorMessage,
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-
+                item { ErrorWidget((state as ListScreenState.Error).errorMessage) }
             }
             ListScreenState.Idle -> {}
             ListScreenState.Loading -> {
                 placeholder()
-
             }
             is ListScreenState.Success -> {
-                (state as ListScreenState.Success).entities.forEachIndexed { index, item ->
+                (state as ListScreenState.Success).entities.forEach { item ->
                     val planet = item as PlanetDomainModel
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(

@@ -16,10 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
-import de.olegrom.starwars.android.ui.common.ImageCard
-import de.olegrom.starwars.android.ui.common.ParametersCard
-import de.olegrom.starwars.android.ui.common.SectionHeader
-import de.olegrom.starwars.android.ui.common.TextCard
+import de.olegrom.starwars.android.ui.common.*
 import de.olegrom.starwars.android.ui.getLabelByRoute
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
@@ -52,10 +49,7 @@ fun PersonDetailScreen(
     ) {
         when (state) {
             is DetailScreenState.Error -> {
-                Text(
-                    text = (state as DetailScreenState.Error).errorMessage ?: "",
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                ErrorWidget((state as DetailScreenState.Error).errorMessage)
             }
             DetailScreenState.Idle -> {}
             DetailScreenState.Loading -> {}

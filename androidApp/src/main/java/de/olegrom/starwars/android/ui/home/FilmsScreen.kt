@@ -15,12 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
+import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.getLabelByRoute
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
-import de.olegrom.starwars.presentation.home.FilmsViewModel
-import de.olegrom.starwars.presentation.home.FilmsScreenState
-import de.olegrom.starwars.presentation.home.TopAppBarViewModel
+import de.olegrom.starwars.domain.domain_model.FilmDomainModel
+import de.olegrom.starwars.domain.domain_model.PersonDomainModel
+import de.olegrom.starwars.presentation.home.*
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
@@ -49,31 +49,25 @@ fun FilmsScreen(
     ) {
         item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
         when (state) {
-            is FilmsScreenState.Error -> {
-                item {
-                    Text(
-                        text = (state as FilmsScreenState.Error).errorMessage,
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-
+            is ListScreenState.Error -> {
+                item { ErrorWidget((state as ListScreenState.Error).errorMessage) }
             }
-            FilmsScreenState.Idle -> {}
-            FilmsScreenState.Loading -> {
+            ListScreenState.Idle -> {}
+            ListScreenState.Loading -> {
                 placeholder()
-
             }
-            is FilmsScreenState.Success -> {
-                (state as FilmsScreenState.Success).films.forEachIndexed { index, item ->
+            is ListScreenState.Success -> {
+                (state as ListScreenState.Success).entities.forEach { item ->
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
+                        val film = item as FilmDomainModel
                         EntityCard(
                             StarWarsApp.FILM_URL,
-                            "${item.title} [Episode: ${item.episodeId}]",
-                            "Director: ${item.director}, Producer: ${item.producer}",
-                            "Release date: ${item.releaseDate}"
+                            "${film.title} [Episode: ${film.episodeId}]",
+                            "Director: ${film.director}, Producer: ${film.producer}",
+                            "Release date: ${film.releaseDate}"
                         ) {
                             navController.navigate(
-                                Screen.Film.route.replace("{filmId}", item.id)
+                                Screen.Film.route.replace("{filmId}", film.id)
                             )
                         }
                     }
@@ -85,7 +79,10 @@ fun FilmsScreen(
 
 fun LazyGridScope.placeholder() {
     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             CircularProgressIndicator(modifier = Modifier.size(50.dp))
         }
     }

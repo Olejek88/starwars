@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
+import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.common.ImageCard
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
@@ -46,10 +47,7 @@ fun StarshipDetailScreen(
     ) {
         when (state) {
             is DetailScreenState.Error -> {
-                Text(
-                    text = (state as DetailScreenState.Error).errorMessage,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                ErrorWidget((state as DetailScreenState.Error).errorMessage)
             }
             DetailScreenState.Idle -> {}
             DetailScreenState.Loading -> {}

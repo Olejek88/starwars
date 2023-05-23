@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
+import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
@@ -48,21 +49,14 @@ fun PersonsScreen(
         item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
         when (state) {
             is ListScreenState.Error -> {
-                item {
-                    Text(
-                        text = (state as ListScreenState.Error).errorMessage,
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-
+                item { ErrorWidget((state as ListScreenState.Error).errorMessage) }
             }
             ListScreenState.Idle -> {}
             ListScreenState.Loading -> {
                 placeholder()
-
             }
             is ListScreenState.Success -> {
-                (state as ListScreenState.Success).entities.forEachIndexed { index, item ->
+                (state as ListScreenState.Success).entities.forEach { item ->
                     val person = item as PersonDomainModel
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
