@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,7 +26,7 @@ fun ParametersCard(parameters: List<Pair<String, String>>) {
                     value = keyValue.second,
                 )
                 if (index < parameters.lastIndex) {
-                    Divider(thickness = 1.dp)
+                    Divider(thickness = 1.dp, color = MaterialTheme.colorScheme.onPrimary)
                 }
             }
         }
