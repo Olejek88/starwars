@@ -24,6 +24,7 @@ import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -33,6 +34,7 @@ fun StarshipDetailScreen(
     viewModel: StarshipDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val topAppBarViewModel : TopAppBarViewModel = getViewModel()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
     }
@@ -53,6 +55,7 @@ fun StarshipDetailScreen(
             DetailScreenState.Loading -> {}
             is DetailScreenState.Success -> {
                 val starship = (state as DetailScreenState.Success).entity as StarshipDomainModel
+                topAppBarViewModel.title.value = starship.name
                 SectionHeader(modifier = Modifier.testTag(TestTag.detailHeader),
                     title = starship.name, subtitle = starship.model)
                 ImageCard(StarWarsApp.STARSHIP_URL)

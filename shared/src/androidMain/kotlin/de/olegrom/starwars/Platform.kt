@@ -5,10 +5,7 @@ import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
 import de.olegrom.starwars.presentation.detail.PlanetDetailsViewModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
-import de.olegrom.starwars.presentation.home.FilmsViewModel
-import de.olegrom.starwars.presentation.home.PersonsViewModel
-import de.olegrom.starwars.presentation.home.PlanetsViewModel
-import de.olegrom.starwars.presentation.home.ShipsViewModel
+import de.olegrom.starwars.presentation.home.*
 import io.ktor.client.engine.android.*
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -63,5 +60,8 @@ actual fun platformModule() = module {
     }
     viewModel {
         PlanetDetailsViewModel(get())
+    }
+    single {
+        TopAppBarViewModel()
     }
 }

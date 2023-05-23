@@ -1,5 +1,6 @@
 package de.olegrom.starwars.android.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -16,23 +17,26 @@ import androidx.navigation.compose.rememberNavController
 import de.olegrom.starwars.android.navigation.main.MainGraph
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.utils.TestTag
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController = rememberNavController()) {
+fun MainScreen(navController: NavHostController = rememberNavController(),
+               topAppBarViewModel: TopAppBarViewModel = getViewModel()) {
     var canPop by remember { mutableStateOf(false) }
-    val currentTitle = remember { mutableStateOf(Screen.Films.route) }
+    val title by topAppBarViewModel.title.collectAsState()
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     DisposableEffect(navController) {
         val listener = NavController.OnDestinationChangedListener { controller, _, _ ->
             canPop = false
             controller.currentBackStackEntry?.destination?.route?.let {
-                currentTitle.value = getLabelByRoute(it)
                 canPop = (it != Screen.Planets.route)
                         && (it != Screen.Films.route)
                         && (it != Screen.Persons.route)
                         && (it != Screen.Starships.route)
+
             }
         }
         navController.addOnDestinationChangedListener(listener)
@@ -46,7 +50,7 @@ fun MainScreen(navController: NavHostController = rememberNavController()) {
                 MediumTopAppBar(
                     title = {
                         Text(
-                            currentTitle.value,
+                            title,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth().testTag(TestTag.appBarTitle),
                             style = MaterialTheme.typography.titleMedium

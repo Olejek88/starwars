@@ -18,6 +18,7 @@ import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
 import de.olegrom.starwars.presentation.home.*
+import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -26,6 +27,8 @@ fun PlanetsScreen(modifier: Modifier,
                 viewModel: PlanetsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
+    topAppBarViewModel.title.update { "Planets" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetPlanets)

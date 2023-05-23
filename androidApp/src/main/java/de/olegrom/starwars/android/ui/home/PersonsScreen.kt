@@ -19,6 +19,7 @@ import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
 import de.olegrom.starwars.presentation.home.*
+import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -28,6 +29,8 @@ fun PersonsScreen(
     viewModel: PersonsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
+    topAppBarViewModel.title.update { "Persons" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetPersons)

@@ -16,6 +16,7 @@ import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.presentation.home.*
+import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -25,6 +26,8 @@ fun ShipsScreen(
     viewModel: ShipsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
+    topAppBarViewModel.title.update { "Starships" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetStarships)

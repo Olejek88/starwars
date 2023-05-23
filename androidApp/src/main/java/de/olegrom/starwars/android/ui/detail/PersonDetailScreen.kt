@@ -20,6 +20,7 @@ import de.olegrom.starwars.android.ui.common.ImageCard
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.ui.common.SectionHeader
 import de.olegrom.starwars.android.ui.common.TextCard
+import de.olegrom.starwars.android.ui.getLabelByRoute
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel

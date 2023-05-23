@@ -15,10 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
+import de.olegrom.starwars.android.ui.getLabelByRoute
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.FilmsViewModel
 import de.olegrom.starwars.presentation.home.FilmsScreenState
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
+import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -28,6 +31,8 @@ fun FilmsScreen(
     viewModel: FilmsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
+    topAppBarViewModel.title.update { "Films" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetFilms)

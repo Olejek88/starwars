@@ -3,7 +3,6 @@ package de.olegrom.starwars.domain.domain_model
 import de.olegrom.starwars.CommonParcelable
 import de.olegrom.starwars.CommonParcelize
 import de.olegrom.starwars.data.local.dao.PersonDAO
-import de.olegrom.starwars.data.local.dao.StarshipDAO
 
 @CommonParcelize
 data class PersonDomainModel(
