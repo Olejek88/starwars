@@ -17,7 +17,16 @@ data class PlanetDomainModel(
     var surfaceWater: String,
     var population: String,
     var url: String
-) : CommonParcelable
+) : CommonParcelable {
+    val id: String
+        get() {
+            val params = url.split("/")
+            if (params.size>=2) {
+                return params[params.size-2];
+            }
+            return "1"
+        }
+}
 
 fun PlanetDomainModel.asDao(): PlanetDAO {
     return PlanetDAO().also {

@@ -2,6 +2,8 @@ package de.olegrom.starwars
 
 import android.os.Parcelable
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
+import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
+import de.olegrom.starwars.presentation.detail.PlanetDetailsViewModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.FilmsViewModel
 import de.olegrom.starwars.presentation.home.PersonsViewModel
@@ -55,5 +57,11 @@ actual fun platformModule() = module {
     }
     viewModel {
         StarshipDetailsViewModel(get())
+    }
+    viewModel {
+        PersonDetailsViewModel(get())
+    }
+    viewModel {
+        PlanetDetailsViewModel(get())
     }
 }

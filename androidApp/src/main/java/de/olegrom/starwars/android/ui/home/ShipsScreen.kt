@@ -19,9 +19,10 @@ import de.olegrom.starwars.presentation.home.*
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun ShipsScreen(modifier: Modifier,
-                navController: NavHostController,
-                viewModel: ShipsViewModel = getViewModel()
+fun ShipsScreen(
+    modifier: Modifier,
+    navController: NavHostController,
+    viewModel: ShipsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyGridState()
@@ -62,14 +63,9 @@ fun ShipsScreen(modifier: Modifier,
                             "Manufacturer: ${item.manufacturer}",
                             "Cost: ${item.cost}"
                         ) {
-                            val params = item.url.split("/")
-                            // TODO user regex
-                            if (params.size>=2) {
-                                val id = params[params.size-2];
-                                navController.navigate(
-                                    Screen.Starship.route.replace("{starshipId}", id)
-                                )
-                            }
+                            navController.navigate(
+                                Screen.Starship.route.replace("{starshipId}", item.id)
+                            )
                         }
                     }
                 }

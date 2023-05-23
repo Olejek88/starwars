@@ -17,7 +17,16 @@ data class PersonDomainModel(
     var gender: String = "",
     var homeworld: String = "",
     var url: String = ""
-) : CommonParcelable
+) : CommonParcelable {
+    val id: String
+        get() {
+            val params = url.split("/")
+            if (params.size>=2) {
+                return params[params.size-2];
+            }
+            return "1"
+        }
+}
 
 fun PersonDomainModel.asDao(): PersonDAO {
     return PersonDAO().also {

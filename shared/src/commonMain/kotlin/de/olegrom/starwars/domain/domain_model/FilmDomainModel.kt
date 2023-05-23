@@ -13,7 +13,16 @@ data class FilmDomainModel(
     var producer: String = "",
     var releaseDate: String = "",
     var url: String = "",
-) : CommonParcelable
+) : CommonParcelable {
+    val id: String
+        get() {
+            val params = url.split("/")
+            if (params.size>=2) {
+                return params[params.size-2];
+            }
+            return "1"
+        }
+}
 
 fun FilmDomainModel.asDao(): FilmDAO {
     return FilmDAO().also {

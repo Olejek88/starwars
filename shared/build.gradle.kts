@@ -33,14 +33,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-/*
-                with(Compose) {
-                    implementation(composeUI)
-                    implementation(composeMaterial)
-                    implementation(composeActivity)
-                    implementation(util)
-                }
-*/
                 with(Ktor) {
                     implementation(clientCore)
                     implementation(clientJson)

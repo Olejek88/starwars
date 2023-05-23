@@ -22,9 +22,10 @@ import de.olegrom.starwars.presentation.home.*
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun PersonsScreen(modifier: Modifier,
-                navController: NavHostController,
-                viewModel: PersonsViewModel = getViewModel()
+fun PersonsScreen(
+    modifier: Modifier,
+    navController: NavHostController,
+    viewModel: PersonsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyGridState()
@@ -67,6 +68,9 @@ fun PersonsScreen(modifier: Modifier,
                             "[${person.height}cm / ${person.mass}kg], Birth year: ${person.birthYear}",
                             "Gender: ${person.gender}"
                         ) {
+                            navController.navigate(
+                                Screen.Person.route.replace("{personId}", person.id)
+                            )
                         }
                     }
                 }

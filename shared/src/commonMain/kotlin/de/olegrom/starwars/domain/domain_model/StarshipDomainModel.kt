@@ -19,7 +19,16 @@ data class StarshipDomainModel(
     var hyperdriveRating: String,
     var starshipClass: String,
     var url: String
-) : CommonParcelable
+) : CommonParcelable {
+    val id: String
+        get() {
+            val params = url.split("/")
+            if (params.size>=2) {
+                return params[params.size-2];
+            }
+            return "1"
+        }
+}
 
 fun StarshipDomainModel.asDao(): StarshipDAO {
     return StarshipDAO().also {

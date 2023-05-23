@@ -22,9 +22,10 @@ import de.olegrom.starwars.presentation.home.FilmsScreenState
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FilmsScreen(modifier: Modifier,
-                navController: NavHostController,
-                viewModel: FilmsViewModel = getViewModel()
+fun FilmsScreen(
+    modifier: Modifier,
+    navController: NavHostController,
+    viewModel: FilmsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyGridState()
@@ -66,14 +67,9 @@ fun FilmsScreen(modifier: Modifier,
                             "Director: ${item.director}, Producer: ${item.producer}",
                             "Release date: ${item.releaseDate}"
                         ) {
-                            val params = item.url.split("/")
-                            // TODO user regex
-                            if (params.size>=2) {
-                                val id = params[params.size-2];
-                                navController.navigate(
-                                    Screen.Film.route.replace("{filmId}", id)
-                                )
-                            }
+                            navController.navigate(
+                                Screen.Film.route.replace("{filmId}", item.id)
+                            )
                         }
                     }
                 }

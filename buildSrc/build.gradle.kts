@@ -1,7 +1,6 @@
 repositories{
     mavenLocal()
     mavenCentral()
-    jcenter()
 }
 
 plugins{

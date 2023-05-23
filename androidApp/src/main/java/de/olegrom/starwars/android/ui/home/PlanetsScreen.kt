@@ -66,6 +66,9 @@ fun PlanetsScreen(modifier: Modifier,
                             "Climate: ${planet.climate}, Surface: ${planet.surfaceWater}",
                             "Terrain: ${planet.terrain}"
                         ) {
+                            navController.navigate(
+                                Screen.Planet.route.replace("{planetId}", planet.id)
+                            )
                         }
                     }
                 }
