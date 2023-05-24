@@ -1,15 +1,11 @@
 package de.olegrom.starwars.android.ui.home
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.SwipeRefreshState
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.common.PagingView
@@ -26,16 +22,16 @@ import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 fun FilmsScreen(
     modifier: Modifier,
     navController: NavHostController,
-    viewModel: FilmsViewModel = getViewModel()
+    pagedViewModel: FilmsPagedViewModel
 ) {
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
-    val pagedViewModel = FilmsPagedViewModel(viewModel)
     topAppBarViewModel.title.update { "Films" }
     val movies: LazyPagingItems<FilmDomainModel> = pagedViewModel.list.collectAsLazyPagingItems()
-    PagingView(modifier = modifier, list = movies) {
+    val listState: LazyListState = rememberLazyListState()
+    PagingView(modifier = modifier, state = listState, list = movies) {
         items(
             count = movies.itemCount,
-            key = movies.itemKey(),
+            key = movies.itemKey { it.id },
             contentType = movies.itemContentType()
         ) { index ->
             val item = movies[index]
@@ -54,4 +50,3 @@ fun FilmsScreen(
         }
     }
 }
-

@@ -45,9 +45,11 @@ class PersonsViewModel(private val getPersonsUseCase: GetPersonsUseCase) : ViewM
                                 ListScreenState.Success(result.data)
                             }
                         } else {
+/*
                             _state.update {
-                                (it as ListScreenState.Success).copy(entities = it.entities + result.data)
+                                //(it as ListScreenState.Success).copy(entity = it.entity + result.data)
                             }
+*/
                         }
                     }
                 }

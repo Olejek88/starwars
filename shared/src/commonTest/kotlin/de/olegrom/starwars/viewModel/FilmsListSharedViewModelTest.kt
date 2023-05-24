@@ -36,7 +36,7 @@ class FilmsListSharedViewModelTest {
             val state : FlowCollector<ListScreenState> = FlowCollector {
                 println(it)
                 if (it is ListScreenState.Success) {
-                    val films = (it).entities
+                    val films = (it).entity
                     assertTrue(films.isNotEmpty())
                     assertTrue(films[0].title == "A New Hope")
                     assertTrue(films[0].episodeId == 4)
@@ -67,7 +67,7 @@ class FilmsListSharedViewModelTest {
             val state : FlowCollector<ListScreenState> = FlowCollector {
                 println(it)
                 if (it is ListScreenState.Success) {
-                    val films = (it).entities
+                    val films = (it).entity
                     assertTrue(films.isEmpty())
                     cancel()
                 }

@@ -18,19 +18,25 @@ class FilmsListPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FilmDomainModel> {
         var nextPage: Int? = params.key ?: 1
+        Log.d("[list]","[$nextPage]")
         val result = sharedViewModel.loadMovies(params.key ?: 1).last()
-        var currentPage = 1
-        var list = listOf<FilmDomainModel>()
         if (result is FilmsScreenState.Success) {
-            currentPage = result.response.currentPage
+            val currentPage = result.response.currentPage
             nextPage = result.response.nextPage
-            list = result.response.asDomainModel()
+            return LoadResult.Page(
+                data = result.response.asDomainModel(),
+                prevKey = null,
+                nextKey = if (nextPage==currentPage || nextPage==null) null else nextPage
+            )
         }
-        Log.d("[list]","[$currentPage] [$nextPage]")
+        if (result is FilmsScreenState.Error) {
+            val error = result.errorMessage
+            return LoadResult.Error(Throwable(error))
+        }
         return LoadResult.Page(
-            data = list,
+            data = listOf(),
             prevKey = null,
-            nextKey = if (nextPage==currentPage || nextPage==null) null else nextPage
+            nextKey = null
         )
     }
 }

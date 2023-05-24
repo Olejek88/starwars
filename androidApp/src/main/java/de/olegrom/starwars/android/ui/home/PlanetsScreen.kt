@@ -2,9 +2,6 @@ package de.olegrom.starwars.android.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,7 +14,9 @@ import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
+import de.olegrom.starwars.data.remote.dto.PersonsDTO
+import de.olegrom.starwars.data.remote.dto.PlanetsDTO
+import de.olegrom.starwars.data.remote.dto.asDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
 import de.olegrom.starwars.presentation.home.*
 import kotlinx.coroutines.flow.update
@@ -55,7 +54,8 @@ fun PlanetsScreen(modifier: Modifier,
                 placeholder()
             }
             is ListScreenState.Success -> {
-                (state as ListScreenState.Success).entities.forEach { item ->
+                val planets = (state as ListScreenState.Success).entity as PlanetsDTO
+                planets.asDomainModel().forEach { item ->
                     val planet = item as PlanetDomainModel
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(

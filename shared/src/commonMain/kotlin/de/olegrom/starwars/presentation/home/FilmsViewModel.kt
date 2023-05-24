@@ -9,9 +9,6 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.*
 
 class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
-    private val _state = MutableStateFlow<ListScreenState>(ListScreenState.Idle)
-    var state = _state.asStateFlow()
-
     fun loadMovies(page: Int): Flow<FilmsScreenState> = flow {
         when (val result = getFilmsUseCase.invoke(page = page).asResult().last()) {
             is Result.Error -> {

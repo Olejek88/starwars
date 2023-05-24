@@ -9,29 +9,29 @@ import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
 import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
 import de.olegrom.starwars.android.ui.detail.PlanetDetailScreen
 import de.olegrom.starwars.android.ui.detail.StarshipDetailScreen
-import de.olegrom.starwars.android.ui.home.FilmsScreen
-import de.olegrom.starwars.android.ui.home.PersonsScreen
-import de.olegrom.starwars.android.ui.home.PlanetsScreen
-import de.olegrom.starwars.android.ui.home.ShipsScreen
+import de.olegrom.starwars.android.ui.home.*
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainGraph(
     navController: NavHostController,
     modifier: Modifier
 ) {
+    val filmsPagedViewModel = FilmsPagedViewModel(getViewModel())
+    val shipsPagedViewModel = ShipsPagedViewModel(getViewModel())
     NavHost(
         navController = navController,
         route = Graph.MAIN,
         startDestination = Screen.Films.route
     ) {
         composable(Screen.Films.route) {
-            FilmsScreen(modifier, navController)
+            FilmsScreen(modifier, navController, filmsPagedViewModel)
         }
         composable(Screen.Persons.route) {
             PersonsScreen(modifier, navController)
         }
         composable(Screen.Starships.route) {
-            ShipsScreen(modifier, navController)
+            ShipsScreen(modifier, navController, shipsPagedViewModel)
         }
         composable(Screen.Planets.route) {
             PlanetsScreen(modifier, navController)

@@ -2,7 +2,7 @@ package de.olegrom.starwars.data.remote.dto
 
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 
-val filmsRegexPattern = """https://swapi.dev/api/films/?page=([0-9]+).*""".toRegex()
+val filmsRegexPattern = """https:\/\/swapi.dev\/api\/films\/\?page=([0-9]+)""".toRegex()
 
 @kotlinx.serialization.Serializable
 data class FilmsDTO(
@@ -18,14 +18,6 @@ data class FilmsDTO(
             }
             val page = filmsRegexPattern.matchEntire(previous)?.groups?.get(0)?.value
             return page?.toInt() ?: 1
-        }
-    val previousPage: Int?
-        get() {
-            if (previous==null) {
-                return null
-            }
-            val page =filmsRegexPattern.matchEntire(previous)?.groups?.get(0)?.value
-            return page?.toInt()
         }
     val nextPage: Int?
         get() {

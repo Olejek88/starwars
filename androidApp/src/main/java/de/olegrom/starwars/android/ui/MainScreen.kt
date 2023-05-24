@@ -26,8 +26,6 @@ fun MainScreen(navController: NavHostController = rememberNavController(),
                topAppBarViewModel: TopAppBarViewModel = getViewModel()) {
     var canPop by remember { mutableStateOf(false) }
     val title by topAppBarViewModel.title.collectAsState()
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     DisposableEffect(navController) {
         val listener = NavController.OnDestinationChangedListener { controller, _, _ ->
             canPop = false
@@ -47,7 +45,7 @@ fun MainScreen(navController: NavHostController = rememberNavController(),
     Column(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             topBar = {
-                MediumTopAppBar(
+                TopAppBar(
                     title = {
                         Text(
                             title,
@@ -66,14 +64,6 @@ fun MainScreen(navController: NavHostController = rememberNavController(),
                             }
                         }
                     },
-                    actions = {
-                        // Set right padding as size = IconButtonTokens.StateLayerSize in order
-                        // to center the app bar title
-                        if (canPop) {
-                            Box(modifier = Modifier.size(24.dp))
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
                     colors = TopAppBarDefaults.largeTopAppBarColors(
                         containerColor = MaterialTheme.colorScheme.background,
                         scrolledContainerColor = MaterialTheme.colorScheme.background,
@@ -94,7 +84,6 @@ fun MainScreen(navController: NavHostController = rememberNavController(),
             bottomBar = {
                 BottomNavigationMenu(navController = navController)
             },
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
         )
     }
 }
