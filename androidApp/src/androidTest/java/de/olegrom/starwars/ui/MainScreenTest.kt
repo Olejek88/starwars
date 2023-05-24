@@ -59,9 +59,8 @@ class MainScreenTest {
         composeRule.onNodeWithText("Planets").assertIsDisplayed()
         composeRule.onAllNodesWithTag(TestTag.listElement).fetchSemanticsNodes().isNotEmpty()
 
-        // details
+        // back to films
         composeRule.onNodeWithTag(TestTag.menuFilms).performClick()
         composeRule.onAllNodesWithTag(TestTag.listElement).fetchSemanticsNodes().isNotEmpty()
-        composeRule.onAllNodesWithTag(TestTag.listElement)[0].performClick()
     }
 }

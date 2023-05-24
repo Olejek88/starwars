@@ -1,6 +1,7 @@
 package de.olegrom.starwars.viewModel
 
 import de.olegrom.starwars.data.remote.FakeRemoteDataSource
+import de.olegrom.starwars.data.remote.dto.FilmsDTO
 import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -28,31 +30,21 @@ class FilmsListSharedViewModelTest {
         Dispatchers.setMain(Dispatchers.Unconfined)
         val service = ImplKtorService(
             fakeRemoteDataSource.apiService.buildApiService("films.json"),
-            "https://swapi.py4e.com/api"
+            "https://swapi.dev/api"
         )
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
-            sharedViewModel.loadMovies(1)
-            val state : FlowCollector<ListScreenState> = FlowCollector {
-                println(it)
-                if (it is ListScreenState.Success) {
-                    val films = (it).entity
-                    assertTrue(films.isNotEmpty())
-                    assertTrue(films[0].title == "A New Hope")
-                    assertTrue(films[0].episodeId == 4)
-                    assertTrue(films[0].director == "George Lucas")
-                    assertTrue(films[0].producer == "Gary Kurtz, Rick McCallum")
-                    cancel()
-                }
-                if (it is ListScreenState.Error) {
-                    assertFails("API call error") {}
-                    cancel()
-                }
-            }
-            sharedViewModel.state.collect(state)
+            val loadResult = sharedViewModel.loadMovies(1).last()
+            assertTrue(loadResult is ListScreenState.Success)
+            assertTrue(loadResult.entity is FilmsDTO)
+            val films = loadResult.entity as FilmsDTO
+            assertTrue(films.results.isNotEmpty())
+            assertTrue(films.results[0].title == "A New Hope")
+            assertTrue(films.results[0].episode_id == 4)
+            assertTrue(films.results[0].director == "George Lucas")
+            assertTrue(films.results[0].producer == "Gary Kurtz, Rick McCallum")
         }
     }
-
 
     @Test
     fun fetchMovieShouldReturnError() = runBlocking {
@@ -63,20 +55,11 @@ class FilmsListSharedViewModelTest {
         )
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
-            sharedViewModel.onIntent(AllScreensSideEvent.GetFilms)
-            val state : FlowCollector<ListScreenState> = FlowCollector {
-                println(it)
-                if (it is ListScreenState.Success) {
-                    val films = (it).entity
-                    assertTrue(films.isEmpty())
-                    cancel()
-                }
-                if (it is ListScreenState.Error) {
-                    assertFails("API call error") {}
-                    cancel()
-                }
-            }
-            sharedViewModel.state.collect(state)
+            val loadResult = sharedViewModel.loadMovies(1).last()
+            assertTrue(loadResult is ListScreenState.Success)
+            assertTrue(loadResult.entity is FilmsDTO)
+            val films = loadResult.entity as FilmsDTO
+            assertTrue(films.results.isEmpty())
         }
     }
 }

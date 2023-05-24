@@ -8,12 +8,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import de.olegrom.starwars.android.utils.TestTag
 
 @Composable
 fun ParametersCard(parameters: List<Pair<String, String>>) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().testTag(TestTag.detailParameters)
             .clip(shape = RoundedCornerShape(size = 10.dp)),
     ) {
         Column(

@@ -6,15 +6,11 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import de.olegrom.starwars.android.MainActivity
 import de.olegrom.starwars.android.theme.StarWarsTheme
-import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
 import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
 import de.olegrom.starwars.android.utils.TestTag
-import de.olegrom.starwars.data.remote.dto.FilmDTO
 import de.olegrom.starwars.data.remote.service.FakeKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
-import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
 import de.olegrom.starwars.domain.usecase.detail.GetPersonUseCase
-import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
 import org.junit.Before
 import org.junit.Rule
@@ -35,11 +31,11 @@ class PersonDetailTest {
     }
 
     @Test
-    fun myTest() {
+    fun personDetailsTest() {
         composeRule.waitUntil(5000) {
-            composeRule.onAllNodesWithText("A New Hope").fetchSemanticsNodes().size == 1
+            composeRule.onAllNodesWithText("19 BBY").fetchSemanticsNodes().size == 1
         }
-        composeRule.onAllNodesWithText("George Lucas").fetchSemanticsNodes().isNotEmpty()
-        composeRule.onNodeWithTag(TestTag.detailHeader).assertIsDisplayed()
+        composeRule.onAllNodesWithText("Blond").fetchSemanticsNodes().isNotEmpty()
+        composeRule.onNodeWithTag(TestTag.detailParameters).assertIsDisplayed()
     }
 }
