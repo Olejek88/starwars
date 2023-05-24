@@ -8,7 +8,7 @@ class GetPersonsUseCase(
     private val repository: AbstractRepository
 ) {
     operator fun invoke(page: Int) = flow {
-        val response = repository.getAllPersons(page).asDomainModel()
+        val response = repository.getAllPersons(page)
         emit(response)
     }
 }

@@ -32,7 +32,7 @@ class FilmsListSharedViewModelTest {
         )
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
-            sharedViewModel.onIntent(AllScreensSideEvent.GetFilms)
+            sharedViewModel.loadMovies(1)
             val state : FlowCollector<ListScreenState> = FlowCollector {
                 println(it)
                 if (it is ListScreenState.Success) {

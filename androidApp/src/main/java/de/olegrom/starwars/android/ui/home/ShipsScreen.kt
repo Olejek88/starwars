@@ -41,7 +41,7 @@ fun ShipsScreen(
     PagingView(modifier = modifier, state = listState, list = ships) {
         items(
             count = ships.itemCount,
-            key = ships.itemKey { it.id },
+            key = ships.itemKey { it.name },
             contentType = ships.itemContentType()
         ) { index ->
             val ship = ships[index]

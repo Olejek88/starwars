@@ -17,24 +17,22 @@ fun MainGraph(
     navController: NavHostController,
     modifier: Modifier
 ) {
-    val filmsPagedViewModel = FilmsPagedViewModel(getViewModel())
-    val shipsPagedViewModel = ShipsPagedViewModel(getViewModel())
     NavHost(
         navController = navController,
         route = Graph.MAIN,
         startDestination = Screen.Films.route
     ) {
         composable(Screen.Films.route) {
-            FilmsScreen(modifier, navController, filmsPagedViewModel)
+            FilmsScreen(modifier, navController, FilmsPagedViewModel(getViewModel()))
         }
         composable(Screen.Persons.route) {
-            PersonsScreen(modifier, navController)
+            PersonsScreen(modifier, navController, PersonsPagedViewModel(getViewModel()))
         }
         composable(Screen.Starships.route) {
-            ShipsScreen(modifier, navController, shipsPagedViewModel)
+            ShipsScreen(modifier, navController, ShipsPagedViewModel(getViewModel()))
         }
         composable(Screen.Planets.route) {
-            PlanetsScreen(modifier, navController)
+            PlanetsScreen(modifier, navController, PlanetsPagedViewModel(getViewModel()))
         }
         composable(Screen.Film.route) {
             val filmId = it.arguments?.getString("filmId")

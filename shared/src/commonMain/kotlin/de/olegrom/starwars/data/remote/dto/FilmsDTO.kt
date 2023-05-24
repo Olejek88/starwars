@@ -24,8 +24,12 @@ data class FilmsDTO(
             if (next==null) {
                 return null
             }
-            val page =filmsRegexPattern.matchEntire(next)?.groups?.get(0)?.value
-            return page?.toInt()
+            return try {
+                val page =filmsRegexPattern.matchEntire(next)?.groups?.get(0)?.value
+                page?.toInt()
+            } catch (e: Exception) {
+                1
+            }
         }
 }
 

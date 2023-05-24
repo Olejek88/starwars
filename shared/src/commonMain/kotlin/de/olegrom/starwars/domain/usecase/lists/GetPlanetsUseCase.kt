@@ -8,7 +8,7 @@ class GetPlanetsUseCase(
     private val repository: AbstractRepository
 ) {
     operator fun invoke(page: Int) = flow {
-        val response = repository.getAllPlanets(page).asDomainModel()
+        val response = repository.getAllPlanets(page)
         emit(response)
     }
 }

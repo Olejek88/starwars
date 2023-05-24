@@ -9,15 +9,15 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.*
 
 class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
-    fun loadMovies(page: Int): Flow<FilmsScreenState> = flow {
+    fun loadMovies(page: Int): Flow<ListScreenState> = flow {
         when (val result = getFilmsUseCase.invoke(page = page).asResult().last()) {
             is Result.Error -> {
-                emit(FilmsScreenState.Error(result.exception.message))
+                emit(ListScreenState.Error(result.exception.message))
             }
             is Result.Idle -> {}
             is Result.Loading -> {}
             is Result.Success -> {
-                emit(FilmsScreenState.Success(result.data))
+                emit(ListScreenState.Success(result.data))
             }
         }
     }.asCommonFlow()

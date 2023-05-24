@@ -16,8 +16,12 @@ data class StarshipsDTO(
             if (next==null) {
                 return null
             }
-            val page = shipsRegexPattern.matchEntire(next)?.groups?.get(1)?.value
-            return page?.toInt()
+            return try {
+                val page = shipsRegexPattern.matchEntire(next)?.groups?.get(1)?.value
+                page?.toInt()
+            } catch (e: Exception) {
+                1
+            }
         }
 }
 

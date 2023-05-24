@@ -31,7 +31,7 @@ fun FilmsScreen(
     PagingView(modifier = modifier, state = listState, list = movies) {
         items(
             count = movies.itemCount,
-            key = movies.itemKey { it.id },
+            key = movies.itemKey { it.title },
             contentType = movies.itemContentType()
         ) { index ->
             val item = movies[index]
