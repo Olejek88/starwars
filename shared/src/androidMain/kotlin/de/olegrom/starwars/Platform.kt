@@ -39,12 +39,12 @@ actual fun platformModule() = module {
             get()
         )
     }
-    viewModel {
+    single {
         PersonsViewModel(
             get()
         )
     }
-    viewModel {
+    single {
         PlanetsViewModel(
             get()
         )

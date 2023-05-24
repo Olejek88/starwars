@@ -13,10 +13,7 @@ class ShipsListPagingSource(
     private val sharedViewModel: ShipsViewModel,
 ) : PagingSource<Int, StarshipDomainModel>() {
     override fun getRefreshKey(state: PagingState<Int, StarshipDomainModel>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
+        return null
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StarshipDomainModel> {

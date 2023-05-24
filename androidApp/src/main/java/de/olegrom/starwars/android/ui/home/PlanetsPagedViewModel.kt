@@ -18,7 +18,7 @@ class PlanetsPagedViewModel (
     private val sharedViewModel: PlanetsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<PlanetDomainModel>> =
-        Pager(PagingConfig(pageSize = 10), initialKey = 1) {
+        Pager(PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 10), initialKey = 1) {
             PlanetsListPagingSource(sharedViewModel)
     }.flow.cachedIn(viewModelScope)
 }

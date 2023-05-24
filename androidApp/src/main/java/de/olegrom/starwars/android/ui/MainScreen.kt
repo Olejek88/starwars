@@ -64,6 +64,13 @@ fun MainScreen(navController: NavHostController = rememberNavController(),
                             }
                         }
                     },
+                    actions = {
+                        // Set right padding as size = IconButtonTokens.StateLayerSize in order
+                        // to center the app bar title
+                        if (canPop) {
+                            Box(modifier = Modifier.size(24.dp))
+                        }
+                    },
                     colors = TopAppBarDefaults.largeTopAppBarColors(
                         containerColor = MaterialTheme.colorScheme.background,
                         scrolledContainerColor = MaterialTheme.colorScheme.background,

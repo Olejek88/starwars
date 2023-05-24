@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -37,7 +38,8 @@ fun ShipsScreen(
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     topAppBarViewModel.title.update { "Starships" }
     val listState: LazyListState = rememberLazyListState()
-    val ships: LazyPagingItems<StarshipDomainModel> = pagedViewModel.list.collectAsLazyPagingItems()
+    val ships: LazyPagingItems<StarshipDomainModel> = remember { pagedViewModel.list }
+        .collectAsLazyPagingItems()
     PagingView(modifier = modifier, state = listState, list = ships) {
         items(
             count = ships.itemCount,

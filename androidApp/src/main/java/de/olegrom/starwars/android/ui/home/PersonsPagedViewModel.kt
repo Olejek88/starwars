@@ -15,7 +15,7 @@ class PersonsPagedViewModel (
     private val sharedViewModel: PersonsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<PersonDomainModel>> =
-        Pager(PagingConfig(pageSize = 10), initialKey = 1) {
+        Pager(PagingConfig(pageSize = 10, initialLoadSize = 10), initialKey = 1) {
             PersonsListPagingSource(sharedViewModel)
     }.flow.cachedIn(viewModelScope)
 }

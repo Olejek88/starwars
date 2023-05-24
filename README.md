@@ -61,10 +61,10 @@ To run your application on an Android emulator:
 <br/>In the list of run configurations, select androidApp.
 <br/>Choose your virtual device and click Run
 
-<p><img src="https://github.com/Olejek88/starwars/blob/master/screen1.png">
-<img src="https://github.com/Olejek88/starwars/blob/master/screen2.png"></p>
-<p><img src="https://github.com/Olejek88/starwars/blob/master/screen3.png">
-<img src="https://github.com/Olejek88/starwars/blob/master/screen4.png"></p>
+<p><img src="https://github.com/Olejek88/starwars/blob/master/screen1.png" width="50%">
+<img src="https://github.com/Olejek88/starwars/blob/master/screen2.png" width="50%"></p>
+<p><img src="https://github.com/Olejek88/starwars/blob/master/screen3.png" width="50%">
+<img src="https://github.com/Olejek88/starwars/blob/master/screen4.png" width="50%"></p>
 
 ### iOS
 TODO

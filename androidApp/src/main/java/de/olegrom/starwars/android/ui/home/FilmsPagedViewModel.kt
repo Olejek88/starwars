@@ -15,7 +15,7 @@ class FilmsPagedViewModel (
     private val sharedViewModel: FilmsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<FilmDomainModel>> =
-        Pager(PagingConfig(pageSize = 10), initialKey = 1) {
+        Pager(PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 10), initialKey = 1) {
             FilmsListPagingSource(sharedViewModel)
     }.flow.cachedIn(viewModelScope)
 }

@@ -15,7 +15,7 @@ class ShipsPagedViewModel (
     private val sharedViewModel: ShipsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<StarshipDomainModel>> =
-        Pager(PagingConfig(pageSize = 10), initialKey = 1) {
+        Pager(PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 10), initialKey = 1) {
             ShipsListPagingSource(sharedViewModel)
     }.flow.cachedIn(viewModelScope)
 }

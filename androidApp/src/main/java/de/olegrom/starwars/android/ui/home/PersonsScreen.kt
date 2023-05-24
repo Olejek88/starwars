@@ -3,6 +3,7 @@ package de.olegrom.starwars.android.ui.home
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
@@ -26,7 +27,8 @@ fun PersonsScreen(
 ) {
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     topAppBarViewModel.title.update { "Persons" }
-    val persons: LazyPagingItems<PersonDomainModel> = pagedViewModel.list.collectAsLazyPagingItems()
+    val persons: LazyPagingItems<PersonDomainModel> = remember { pagedViewModel.list }
+        .collectAsLazyPagingItems()
     val listState: LazyListState = rememberLazyListState()
     PagingView(modifier = modifier, state = listState, list = persons) {
         items(

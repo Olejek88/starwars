@@ -22,7 +22,6 @@ class PlanetsListPagingSource(
         val loadResult = sharedViewModel.loadPlanets(params.key ?: 1).last()
         if (loadResult is ListScreenState.Success) {
             val response = loadResult.entity as PlanetsDTO
-            Log.d("[]","[${response.next}] [${response.nextPage}]")
             return LoadResult.Page(
                 data = response.asDomainModel(),
                 prevKey = null,

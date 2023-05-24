@@ -37,8 +37,6 @@ fun FilmDetailScreen(
     topAppBarViewModel: TopAppBarViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val title by topAppBarViewModel.title.collectAsState()
-    Log.d("[]","${title}")
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetFilm(filmId))
     }
