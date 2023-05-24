@@ -17,19 +17,6 @@ kotlin {
         }
     }
 
-    kotlin.targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java) {
-
-        // export correct artifact to use all classes of library directly from Swift
-
-        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
-            export("dev.icerock.moko:mvvm-core:0.13.1")
-        }
-
-        binaries.all {
-            binaryOptions["memoryModel"] = "experimental"
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {

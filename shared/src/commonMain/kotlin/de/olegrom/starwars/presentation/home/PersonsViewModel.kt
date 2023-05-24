@@ -22,7 +22,7 @@ class PersonsViewModel(private val getPersonsUseCase: GetPersonsUseCase) : ViewM
 
     private fun getPersons() {
         viewModelScope.launch {
-            getPersonsUseCase.invoke().asResult().collectLatest { result ->
+            getPersonsUseCase.invoke(1).asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         _state.update {

@@ -2,6 +2,7 @@ package de.olegrom.starwars.android.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.common.ErrorWidget
@@ -30,7 +32,7 @@ fun ShipsScreen(
     topAppBarViewModel.title.update { "Starships" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetStarships)
+        viewModel.onIntent(AllScreensSideEvent.GetStarships(1))
     }
     LazyVerticalGrid(
         modifier = modifier.fillMaxHeight(),
@@ -52,22 +54,34 @@ fun ShipsScreen(
                 placeholder()
             }
             is ListScreenState.Success -> {
+                //val lazyPagingItems = pager.collectAsLazyPagingItems()
                 (state as ListScreenState.Success).entities.forEach { item ->
                     val ship = item as StarshipDomainModel
                     item(span = { GridItemSpan(maxCurrentLineSpan) }) {
                         EntityCard(
                             StarWarsApp.STARSHIP_URL,
                             item.model,
-                            "Manufacturer: ${item.manufacturer}",
-                            "Cost: ${item.cost}"
+                            "Manufacturer: ${ship.manufacturer}",
+                            "Cost: ${ship.cost}"
                         ) {
                             navController.navigate(
-                                Screen.Starship.route.replace("{starshipId}", item.id)
+                                Screen.Starship.route.replace("{starshipId}", ship.id)
                             )
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+fun LazyGridScope.placeholder() {
+    item(span = { GridItemSpan(maxCurrentLineSpan) }) {
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            CircularProgressIndicator(modifier = Modifier.size(50.dp))
         }
     }
 }

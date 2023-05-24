@@ -22,7 +22,7 @@ class PlanetsViewModel(private val getPlanetsUseCase: GetPlanetsUseCase) : ViewM
 
     private fun getPlanets() {
         viewModelScope.launch {
-            getPlanetsUseCase.invoke().asResult().collectLatest { result ->
+            getPlanetsUseCase.invoke(1).asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         _state.update {

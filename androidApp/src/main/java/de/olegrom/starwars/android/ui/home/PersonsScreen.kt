@@ -34,7 +34,7 @@ fun PersonsScreen(
     topAppBarViewModel.title.update { "Persons" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetPersons)
+        //viewModel.onIntent(AllScreensSideEvent.GetPersons)
     }
     LazyVerticalGrid(
         modifier = modifier.fillMaxHeight(),

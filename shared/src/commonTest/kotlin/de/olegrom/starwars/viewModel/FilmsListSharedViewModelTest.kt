@@ -5,8 +5,8 @@ import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
-import de.olegrom.starwars.presentation.home.FilmsScreenState
 import de.olegrom.starwars.presentation.home.FilmsViewModel
+import de.olegrom.starwars.presentation.home.ListScreenState
 import de.olegrom.starwars.util.runBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,10 +33,10 @@ class FilmsListSharedViewModelTest {
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
             sharedViewModel.onIntent(AllScreensSideEvent.GetFilms)
-            val state : FlowCollector<FilmsScreenState> = FlowCollector {
+            val state : FlowCollector<ListScreenState> = FlowCollector {
                 println(it)
-                if (it is FilmsScreenState.Success) {
-                    val films = (it).films
+                if (it is ListScreenState.Success) {
+                    val films = (it).entities
                     assertTrue(films.isNotEmpty())
                     assertTrue(films[0].title == "A New Hope")
                     assertTrue(films[0].episodeId == 4)
@@ -44,7 +44,7 @@ class FilmsListSharedViewModelTest {
                     assertTrue(films[0].producer == "Gary Kurtz, Rick McCallum")
                     cancel()
                 }
-                if (it is FilmsScreenState.Error) {
+                if (it is ListScreenState.Error) {
                     assertFails("API call error") {}
                     cancel()
                 }
@@ -64,14 +64,14 @@ class FilmsListSharedViewModelTest {
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
             sharedViewModel.onIntent(AllScreensSideEvent.GetFilms)
-            val state : FlowCollector<FilmsScreenState> = FlowCollector {
+            val state : FlowCollector<ListScreenState> = FlowCollector {
                 println(it)
-                if (it is FilmsScreenState.Success) {
-                    val films = (it).films
+                if (it is ListScreenState.Success) {
+                    val films = (it).entities
                     assertTrue(films.isEmpty())
                     cancel()
                 }
-                if (it is FilmsScreenState.Error) {
+                if (it is ListScreenState.Error) {
                     assertFails("API call error") {}
                     cancel()
                 }

@@ -22,7 +22,7 @@ class ShipsViewModel(private val getStarshipsUseCase: GetStarshipsUseCase) : Vie
 
     private fun getShips() {
         viewModelScope.launch {
-            getStarshipsUseCase.invoke().asResult().collectLatest { result ->
+            getStarshipsUseCase.invoke(1).asResult().collectLatest { result ->
                 when (result) {
                     is Result.Error -> {
                         _state.update {

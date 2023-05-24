@@ -33,7 +33,7 @@ fun PlanetsScreen(modifier: Modifier,
     topAppBarViewModel.title.update { "Planets" }
     val listState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetPlanets)
+        //viewModel.onIntent(AllScreensSideEvent.GetPlanets)
     }
     LazyVerticalGrid(
         modifier = modifier.fillMaxHeight(),

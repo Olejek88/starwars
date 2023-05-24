@@ -52,7 +52,9 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-
+    with(Accompanist) {
+        implementation(swiperefresh)
+    }
     with(ComposeDestination) {
         implementation(composeDestination)
         ksp(composeDestinationPlugin)
@@ -70,6 +72,7 @@ dependencies {
         implementation(composeActivity)
         implementation(composeToolingDebug)
         implementation(composeUI)
+        implementation(composePaging)
     }
 
     implementation(Koin.koinAndroid)
