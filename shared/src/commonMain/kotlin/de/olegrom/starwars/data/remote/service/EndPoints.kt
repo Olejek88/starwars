@@ -6,4 +6,3 @@ object EndPoints {
     const val PLANETS = "planets"
     const val PEOPLES = "people"
 }
-

@@ -6,6 +6,7 @@ object TestTag {
 
     const val detailHeader = "Detail Header"
     const val detailView = "Detail View"
+    const val detailParameters = "Parameters Card"
 
     const val menuFilms = "Menu Films"
     const val menuShips = "Menu Ships"

@@ -8,7 +8,6 @@ import de.olegrom.starwars.android.MainActivity
 import de.olegrom.starwars.android.theme.StarWarsTheme
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
 import de.olegrom.starwars.android.utils.TestTag
-import de.olegrom.starwars.data.remote.dto.FilmDTO
 import de.olegrom.starwars.data.remote.service.FakeKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
@@ -18,8 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class FilmDetailTest {
-    lateinit var film: FilmDTO
-
     @get:Rule
     val composeRule = createAndroidComposeRule(MainActivity::class.java)
 
@@ -34,7 +31,7 @@ class FilmDetailTest {
     }
 
     @Test
-    fun myTest() {
+    fun filmDetailsTest() {
         composeRule.waitUntil(5000) {
             composeRule.onAllNodesWithText("A New Hope").fetchSemanticsNodes().size == 1
         }

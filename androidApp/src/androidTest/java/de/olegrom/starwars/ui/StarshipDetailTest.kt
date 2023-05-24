@@ -31,7 +31,7 @@ class StarshipDetailTest {
     }
 
     @Test
-    fun myTest() {
+    fun starshipDetailsTest() {
         composeRule.waitUntil(2000) {
             composeRule.onAllNodesWithText("Death Star").fetchSemanticsNodes().size == 1
         }

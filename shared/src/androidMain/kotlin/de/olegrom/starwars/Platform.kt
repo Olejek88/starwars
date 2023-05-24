@@ -29,12 +29,12 @@ actual fun platformModule() = module {
     single {
         Android.create()
     }
-    viewModel {
+    single {
         FilmsViewModel(
             get()
         )
     }
-    viewModel {
+    single {
         ShipsViewModel(
             get()
         )

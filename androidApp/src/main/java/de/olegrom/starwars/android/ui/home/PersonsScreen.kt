@@ -1,25 +1,20 @@
 package de.olegrom.starwars.android.ui.home
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
-import de.olegrom.starwars.android.ui.common.ErrorWidget
+import de.olegrom.starwars.android.ui.common.PagingView
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
-import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
-import de.olegrom.starwars.presentation.home.*
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
@@ -27,49 +22,29 @@ import org.koin.androidx.compose.getViewModel
 fun PersonsScreen(
     modifier: Modifier,
     navController: NavHostController,
-    viewModel: PersonsViewModel = getViewModel()
+    pagedViewModel: PersonsPagedViewModel
 ) {
-    val state by viewModel.state.collectAsState()
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     topAppBarViewModel.title.update { "Persons" }
-    val listState = rememberLazyGridState()
-    LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetPersons)
-    }
-    LazyVerticalGrid(
-        modifier = modifier.fillMaxHeight(),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        horizontalArrangement = Arrangement.spacedBy(
-            20.dp,
-            alignment = Alignment.CenterHorizontally
-        ),
-        state = listState,
-        columns = GridCells.Adaptive(450.dp)
-    ) {
-        item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
-        when (state) {
-            is ListScreenState.Error -> {
-                item { ErrorWidget((state as ListScreenState.Error).errorMessage) }
-            }
-            ListScreenState.Idle -> {}
-            ListScreenState.Loading -> {
-                placeholder()
-            }
-            is ListScreenState.Success -> {
-                (state as ListScreenState.Success).entities.forEach { item ->
-                    val person = item as PersonDomainModel
-                    item(span = { GridItemSpan(maxCurrentLineSpan) }) {
-                        EntityCard(
-                            StarWarsApp.PERSON_URL,
-                            person.name,
-                            "[${person.height}cm / ${person.mass}kg], Birth year: ${person.birthYear}",
-                            "Gender: ${person.gender}"
-                        ) {
-                            navController.navigate(
-                                Screen.Person.route.replace("{personId}", person.id)
-                            )
-                        }
-                    }
+    val persons: LazyPagingItems<PersonDomainModel> = pagedViewModel.list.collectAsLazyPagingItems()
+    val listState: LazyListState = rememberLazyListState()
+    PagingView(modifier = modifier, state = listState, list = persons) {
+        items(
+            count = persons.itemCount,
+            key = persons.itemKey { it.name },
+            contentType = persons.itemContentType()
+        ) { index ->
+            val person = persons[index]
+            person?.let {
+                EntityCard(
+                    StarWarsApp.PERSON_URL,
+                    person.name,
+                    "[${person.height}cm / ${person.mass}kg], Birth year: ${person.birthYear}",
+                    "Gender: ${person.gender}"
+                ) {
+                    navController.navigate(
+                        Screen.Person.route.replace("{personId}", person.id)
+                    )
                 }
             }
         }

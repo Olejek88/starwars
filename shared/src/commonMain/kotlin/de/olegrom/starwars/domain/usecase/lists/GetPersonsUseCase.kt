@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.flow
 class GetPersonsUseCase(
     private val repository: AbstractRepository
 ) {
-    operator fun invoke() = flow {
-        val response = repository.getAllPersons().asDomainModel()
+    operator fun invoke(page: Int) = flow {
+        val response = repository.getAllPersons(page)
         emit(response)
     }
 }

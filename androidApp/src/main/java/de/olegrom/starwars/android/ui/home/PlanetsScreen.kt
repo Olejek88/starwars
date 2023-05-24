@@ -1,74 +1,50 @@
 package de.olegrom.starwars.android.ui.home
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
-import de.olegrom.starwars.android.ui.common.ErrorWidget
+import de.olegrom.starwars.android.ui.common.PagingView
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
-import de.olegrom.starwars.presentation.home.*
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun PlanetsScreen(modifier: Modifier,
-                navController: NavHostController,
-                viewModel: PlanetsViewModel = getViewModel()
+fun PlanetsScreen(
+    modifier: Modifier,
+    navController: NavHostController,
+    pagedViewModel: PlanetsPagedViewModel
 ) {
-    val state by viewModel.state.collectAsState()
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     topAppBarViewModel.title.update { "Planets" }
-    val listState = rememberLazyGridState()
-    LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetPlanets)
-    }
-    LazyVerticalGrid(
-        modifier = modifier.fillMaxHeight(),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        horizontalArrangement = Arrangement.spacedBy(
-            20.dp,
-            alignment = Alignment.CenterHorizontally
-        ),
-        state = listState,
-        columns = GridCells.Adaptive(450.dp)
-    ) {
-        item(span = { GridItemSpan(maxCurrentLineSpan) }) {}
-        when (state) {
-            is ListScreenState.Error -> {
-                item { ErrorWidget((state as ListScreenState.Error).errorMessage) }
-            }
-            ListScreenState.Idle -> {}
-            ListScreenState.Loading -> {
-                placeholder()
-            }
-            is ListScreenState.Success -> {
-                (state as ListScreenState.Success).entities.forEach { item ->
-                    val planet = item as PlanetDomainModel
-                    item(span = { GridItemSpan(maxCurrentLineSpan) }) {
-                        EntityCard(
-                            StarWarsApp.PLANET_URL,
-                            planet.name,
-                            "Climate: ${planet.climate}, Surface: ${planet.surfaceWater}",
-                            "Terrain: ${planet.terrain}"
-                        ) {
-                            navController.navigate(
-                                Screen.Planet.route.replace("{planetId}", planet.id)
-                            )
-                        }
-                    }
+    val planets: LazyPagingItems<PlanetDomainModel> = pagedViewModel.list.collectAsLazyPagingItems()
+    val listState: LazyListState = rememberLazyListState()
+    PagingView(modifier = modifier, state = listState, list = planets) {
+        items(
+            count = planets.itemCount,
+            key = planets.itemKey { it.name },
+            contentType = planets.itemContentType()
+        ) { index ->
+            val planet = planets[index]
+            planet?.let {
+                EntityCard(
+                    StarWarsApp.PLANET_URL,
+                    planet.name,
+                    "Climate: ${planet.climate}, Surface: ${planet.surfaceWater}",
+                    "Terrain: ${planet.terrain}"
+                ) {
+                    navController.navigate(
+                        Screen.Planet.route.replace("{planetId}", planet.id)
+                    )
                 }
             }
         }

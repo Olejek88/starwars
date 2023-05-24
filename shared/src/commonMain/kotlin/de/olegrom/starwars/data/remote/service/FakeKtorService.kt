@@ -3,19 +3,19 @@ package de.olegrom.starwars.data.remote.service
 import de.olegrom.starwars.data.remote.dto.*
 
 class FakeKtorService() : AbstractKtorService() {
-    override suspend fun getFilms(): FilmsDTO {
+    override suspend fun getFilms(page: Int): FilmsDTO {
         return FilmsDTO(0, "0", "0", listOf())
     }
 
-    override suspend fun getStarships(): StarshipsDTO {
+    override suspend fun getStarships(page: Int): StarshipsDTO {
         return StarshipsDTO(0, "0", "0", listOf())
     }
 
-    override suspend fun getPersons(): PersonsDTO {
+    override suspend fun getPersons(page: Int): PersonsDTO {
         return PersonsDTO(0, "0", "0", listOf())
     }
 
-    override suspend fun getPlanets(): PlanetsDTO {
+    override suspend fun getPlanets(page: Int): PlanetsDTO {
         return PlanetsDTO(0, "0", "0", listOf())
     }
 

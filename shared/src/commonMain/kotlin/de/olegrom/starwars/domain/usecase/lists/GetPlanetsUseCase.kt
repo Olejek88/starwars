@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.flow
 class GetPlanetsUseCase(
     private val repository: AbstractRepository
 ) {
-    operator fun invoke() = flow {
-        val response = repository.getAllPlanets().asDomainModel()
+    operator fun invoke(page: Int) = flow {
+        val response = repository.getAllPlanets(page)
         emit(response)
     }
 }

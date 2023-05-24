@@ -2,13 +2,29 @@ package de.olegrom.starwars.data.remote.dto
 
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 
+val shipsRegexPattern = """https:\/\/swapi.dev\/api\/starships\/\?page=([0-9]+)""".toRegex()
+
 @kotlinx.serialization.Serializable
 data class StarshipsDTO(
     val count: Int,
     val next: String?,
     val previous: String?,
     val results: List<StarshipDTO>,
-)
+) {
+    val nextPage: Int?
+        get() {
+            if (next==null) {
+                return null
+            }
+            return try {
+                val page = shipsRegexPattern.matchEntire(next)?.groups?.get(1)?.value
+                page?.toInt()
+            } catch (e: Exception) {
+                1
+            }
+        }
+}
+
 
 @kotlinx.serialization.Serializable
 data class StarshipDTO(
