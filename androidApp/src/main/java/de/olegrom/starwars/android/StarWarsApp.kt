@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 class StarWarsApp : Application(){
     companion object {
-        const val BASE_URL = "https://swapi.dev/api"
+        const val BASE_URL = "https://swapi.py4e.com/api"
         const val FILM_URL = "https://fontmeme.com/images/Star-Wars-Poster.jpg"
         const val STARSHIP_URL = "https://static.wikia.nocookie.net/starwars/images/7/70/DSI-HDapproach.png/revision/latest?cb=20130221005853"
         const val PLANET_URL = "https://static.wikia.nocookie.net/starwars/images/7/72/Teth-TVE.png/revision/latest?cb=20190423045047"

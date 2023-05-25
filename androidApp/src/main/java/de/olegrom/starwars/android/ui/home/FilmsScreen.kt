@@ -1,5 +1,6 @@
 package de.olegrom.starwars.android.ui.home
 
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable

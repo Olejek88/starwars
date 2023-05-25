@@ -1,6 +1,7 @@
 package de.olegrom.starwars.android.ui
 
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,15 +15,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import de.olegrom.starwars.android.navigation.main.MainGraph
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-fun MainScreen(navController: NavHostController = rememberNavController(),
+fun MainScreen(navController: NavHostController = rememberAnimatedNavController(),
                topAppBarViewModel: TopAppBarViewModel = getViewModel()) {
     var canPop by remember { mutableStateOf(false) }
     val title by topAppBarViewModel.title.collectAsState()

@@ -1,23 +1,51 @@
 package de.olegrom.starwars.android.navigation.main
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
 import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
 import de.olegrom.starwars.android.ui.detail.PlanetDetailScreen
 import de.olegrom.starwars.android.ui.detail.StarshipDetailScreen
 import de.olegrom.starwars.android.ui.home.*
 import org.koin.androidx.compose.getViewModel
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 
+@OptIn(ExperimentalAnimationApi::class)
+fun NavGraphBuilder.composable(
+    route: String,
+    content: @Composable () -> Unit,
+) {
+    composable(
+        route = route,
+        enterTransition = {
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec = tween(800))
+        },
+        popEnterTransition = {
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec = tween(800))
+        },
+        popExitTransition = {
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec = tween(800))
+        },
+        exitTransition = {
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec = tween(800))
+        }
+    ) {
+        content()
+    }
+}
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainGraph(
     navController: NavHostController,
     modifier: Modifier
 ) {
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
         route = Graph.MAIN,
         startDestination = Screen.Films.route

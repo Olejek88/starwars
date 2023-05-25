@@ -2,7 +2,7 @@ package de.olegrom.starwars.data.remote.dto
 
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 
-val filmsRegexPattern = """https:\/\/swapi.dev\/api\/films\/\?page=([0-9]+)""".toRegex()
+val filmsRegexPattern = """https:\/\/swapi.py4e.com\/api\/films\/\?page=([0-9]+)""".toRegex()
 
 @kotlinx.serialization.Serializable
 data class FilmsDTO(

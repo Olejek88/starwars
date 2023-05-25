@@ -1,6 +1,8 @@
 package de.olegrom.starwars.android.ui.detail
 
 import android.util.Log
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,8 +31,9 @@ import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun FilmDetailScreen(
+fun AnimatedVisibilityScope.FilmDetailScreen(
     filmId: String,
     modifier: Modifier,
     viewModel: FilmDetailsViewModel = getViewModel(),
@@ -42,6 +45,10 @@ fun FilmDetailScreen(
     }
     Column(
         modifier = modifier
+            .animateEnterExit(
+                enter = fadeIn(animationSpec = tween(850, delayMillis = 0)),
+                exit = fadeOut(animationSpec = tween(850, delayMillis = 0))
+            )
             .testTag(TestTag.detailView)
             .padding(horizontal = 10.dp)
             .verticalScroll(rememberScrollState()),
@@ -56,13 +63,19 @@ fun FilmDetailScreen(
             is DetailScreenState.Success -> {
                 val film = (state as DetailScreenState.Success).entity as FilmDomainModel
                 topAppBarViewModel.title.update { film.title }
-                SectionHeader(modifier = Modifier.testTag(TestTag.detailHeader),
-                    title = film.title, film.director)
+                SectionHeader(
+                    modifier = Modifier.testTag(TestTag.detailHeader),
+                    title = film.title, film.director
+                )
                 ImageCard(StarWarsApp.FILM_URL)
                 TextCard(film.openingCrawl)
-                ParametersCard(listOf(Pair("Director", film.director),
-                    Pair("Producer", film.producer),
-                    Pair("Release date", film.releaseDate)))
+                ParametersCard(
+                    listOf(
+                        Pair("Director", film.director),
+                        Pair("Producer", film.producer),
+                        Pair("Release date", film.releaseDate)
+                    )
+                )
                 //EntitiesListCard(listOf()) {}
             }
         }

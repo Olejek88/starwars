@@ -9,5 +9,5 @@ object Accompanist {
     const val pagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$accompanistPagerVersion"
     const val webview =  "com.google.accompanist:accompanist-webview:$version"
     const val swiperefresh =  "com.google.accompanist:accompanist-swiperefresh:$version"
-
+    const val navigationAnimation =  "com.google.accompanist:accompanist-navigation-animation:0.31.2-alpha"
 }

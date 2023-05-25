@@ -2,7 +2,7 @@ package de.olegrom.starwars.data.remote.dto
 
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 
-val shipsRegexPattern = """https:\/\/swapi.dev\/api\/starships\/\?page=([0-9]+)""".toRegex()
+val shipsRegexPattern = """https:\/\/swapi.py4e.com\/api\/starships\/\?page=([0-9]+)""".toRegex()
 
 @kotlinx.serialization.Serializable
 data class StarshipsDTO(

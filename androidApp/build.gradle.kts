@@ -66,6 +66,7 @@ dependencies {
     with(Accompanist) {
         implementation(coil)
         implementation(webview)
+        implementation(navigationAnimation)
     }
     with(Compose) {
         implementation(util)
@@ -73,6 +74,9 @@ dependencies {
         implementation(composeToolingDebug)
         implementation(composeUI)
         implementation(composePaging)
+    }
+    with(Androidx) {
+        implementation(animation)
     }
 
     implementation(Koin.koinAndroid)
