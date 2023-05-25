@@ -9,7 +9,7 @@ import io.ktor.utils.io.*
 import kotlinx.serialization.json.Json
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
-class FakeApiService() {
+class FakeApiService {
     fun buildApiService(respondFileName: String): HttpClient {
         val response = FileReader().readFile(respondFileName)
         val mockEngine = MockEngine {

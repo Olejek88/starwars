@@ -1,6 +1,6 @@
 package de.olegrom.starwars.data.local.dao
 
-open class FilmDAO() {
+open class FilmDAO {
     var title: String = ""
     var episodeId: Int = 2
     var openingCrawl: String = ""

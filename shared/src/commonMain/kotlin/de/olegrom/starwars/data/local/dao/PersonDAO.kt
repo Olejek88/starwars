@@ -1,6 +1,6 @@
 package de.olegrom.starwars.data.local.dao
 
-open class PersonDAO() {
+open class PersonDAO {
     var name: String = ""
     var height: String = ""
     var mass: String = ""

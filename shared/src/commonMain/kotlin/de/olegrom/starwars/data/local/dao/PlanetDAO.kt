@@ -1,6 +1,6 @@
 package de.olegrom.starwars.data.local.dao
 
-open class PlanetDAO() {
+open class PlanetDAO {
     var name: String = ""
     var rotationPeriod: String = "23"
     var orbitalPeriod: String = "304"

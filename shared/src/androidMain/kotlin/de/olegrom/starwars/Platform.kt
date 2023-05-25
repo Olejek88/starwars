@@ -11,15 +11,6 @@ import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-class AndroidPlatform : Platform {
-    override val name: String = "Android ${android.os.Build.VERSION.SDK_INT}"
-}
-
-actual fun getPlatform(): Platform = AndroidPlatform()
-
-/**
- * shared implementation of parcelable
- */
 actual typealias CommonParcelize = Parcelize
 
 actual typealias CommonParcelable = Parcelable

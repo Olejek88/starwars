@@ -18,6 +18,7 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import io.ktor.client.*
 import io.ktor.client.engine.*
+import io.ktor.client.plugins.cache.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
@@ -109,7 +110,7 @@ fun createHttpClient(
 ) =
     HttpClient(httpClientEngine) {
 
-
+        install(HttpCache)
         install(ContentNegotiation) {
             json(json)
         }

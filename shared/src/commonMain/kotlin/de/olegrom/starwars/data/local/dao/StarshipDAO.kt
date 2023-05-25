@@ -1,6 +1,6 @@
 package de.olegrom.starwars.data.local.dao
 
-open class StarshipDAO() {
+open class StarshipDAO {
     var name: String = ""
     var model: String = ""
     var manufacturer: String = ""

@@ -86,7 +86,7 @@ private fun getNavigationItems(): List<BottomNavItem> {
             Screen.Planets.route,
             TestTag.menuPlanets
         ),
-    );
+    )
 }
 
 private fun getTabActive(currentTab: String, currentRoute: String?): String {

@@ -22,7 +22,7 @@ data class PlanetDomainModel(
         get() {
             val params = url.split("/")
             if (params.size>=2) {
-                return params[params.size-2];
+                return params[params.size-2]
             }
             return "1"
         }

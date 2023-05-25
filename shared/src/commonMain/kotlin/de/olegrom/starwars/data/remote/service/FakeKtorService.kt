@@ -2,7 +2,7 @@ package de.olegrom.starwars.data.remote.service
 
 import de.olegrom.starwars.data.remote.dto.*
 
-class FakeKtorService() : AbstractKtorService() {
+class FakeKtorService : AbstractKtorService() {
     override suspend fun getFilms(page: Int): FilmsDTO {
         return FilmsDTO(0, "0", "0", listOf())
     }
