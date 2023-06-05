@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.olegrom.starwars.android.utils.TestTag
 
@@ -33,4 +34,15 @@ fun ParametersCard(parameters: List<Pair<String, String>>) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ParametersCardPreview() {
+    ParametersCard(listOf(
+        Pair("Director", "George Lukas"),
+        Pair("Producer", "George Lukas"),
+        Pair("Release date", "24/12/2012")
+    )
+    )
 }

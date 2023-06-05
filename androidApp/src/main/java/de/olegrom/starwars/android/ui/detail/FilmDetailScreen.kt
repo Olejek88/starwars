@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.ui.common.*
@@ -50,21 +51,40 @@ fun FilmDetailScreen(
             is DetailScreenState.Success -> {
                 val film = (state as DetailScreenState.Success).entity as FilmDomainModel
                 topAppBarViewModel.title.update { film.title }
-                SectionHeader(
-                    modifier = Modifier.testTag(TestTag.detailHeader),
-                    title = film.title, film.director
-                )
-                ImageCard(StarWarsApp.FILM_URL)
-                TextCard(film.openingCrawl)
-                ParametersCard(
-                    listOf(
-                        Pair("Director", film.director),
-                        Pair("Producer", film.producer),
-                        Pair("Release date", film.releaseDate)
-                    )
-                )
-                //EntitiesListCard(listOf()) {}
+                FilmDetailPageContent(film)
             }
         }
     }
+}
+
+@Composable
+fun FilmDetailPageContent(film: FilmDomainModel) {
+    Column() {
+        SectionHeader(
+            modifier = Modifier.testTag(TestTag.detailHeader),
+            title = film.title, film.director
+        )
+        ImageCard(StarWarsApp.FILM_URL)
+        TextCard(film.openingCrawl)
+        ParametersCard(
+            listOf(
+                Pair("Director", film.director),
+                Pair("Producer", film.producer),
+                Pair("Release date", film.releaseDate)
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun FilmDetailPageContentPreview() {
+    FilmDetailPageContent(
+        FilmDomainModel(
+            "A new hope",
+            director = "George Lukas",
+            producer = "George Lukas",
+            openingCrawl = "Once upon a time...."
+        )
+    )
 }
