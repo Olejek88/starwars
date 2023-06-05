@@ -1,6 +1,5 @@
 package de.olegrom.starwars.android.ui
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -8,13 +7,11 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import de.olegrom.starwars.android.navigation.main.MainGraph
 import de.olegrom.starwars.android.navigation.main.Screen
@@ -24,8 +21,10 @@ import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-fun MainScreen(navController: NavHostController = rememberAnimatedNavController(),
-               topAppBarViewModel: TopAppBarViewModel = getViewModel()) {
+fun MainScreen(
+    navController: NavHostController = rememberAnimatedNavController(),
+    topAppBarViewModel: TopAppBarViewModel = getViewModel()
+) {
     var canPop by remember { mutableStateOf(false) }
     val title by topAppBarViewModel.title.collectAsState()
     DisposableEffect(navController) {
@@ -52,7 +51,9 @@ fun MainScreen(navController: NavHostController = rememberAnimatedNavController(
                         Text(
                             title,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth().testTag(TestTag.appBarTitle),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .testTag(TestTag.appBarTitle),
                             style = MaterialTheme.typography.titleMedium
                         )
                     },

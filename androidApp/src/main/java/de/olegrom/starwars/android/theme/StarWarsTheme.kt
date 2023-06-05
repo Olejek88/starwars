@@ -4,13 +4,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import de.olegrom.starwars.android.theme.*
 
 @Composable
 fun StarWarsTheme(
@@ -85,6 +82,7 @@ fun StarWarsTheme(
     } else {
         darkColorScheme
     }
+
     val typography = Typography(
         bodySmall = TextStyle(
             fontSize = 12.sp,
@@ -99,6 +97,7 @@ fun StarWarsTheme(
             fontWeight = FontWeight.Normal
         ),
     )
+
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
         medium = RoundedCornerShape(6.dp),

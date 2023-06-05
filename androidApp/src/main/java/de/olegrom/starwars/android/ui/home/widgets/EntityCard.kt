@@ -37,13 +37,17 @@ fun EntityCard(
             .testTag(TestTag.listElement),
     ) {
         Row(
-            Modifier.fillMaxWidth().padding(10.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.Top
         ) {
             AsyncImage(
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(100.dp).clip(RoundedCornerShape(10.dp)),
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(10.dp)),
                 model = ImageRequest.Builder(
                     LocalContext.current
                 ).scale(Scale.FILL).data(imageUrl).crossfade(true).build(),
@@ -64,7 +68,7 @@ fun EntityCard(
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (additional!=null) {
+                if (additional != null) {
                     Text(
                         text = additional,
                         style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),

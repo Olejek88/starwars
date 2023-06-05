@@ -3,7 +3,6 @@ package de.olegrom.starwars.android.helper
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import de.olegrom.starwars.data.remote.dto.FilmsDTO
-import de.olegrom.starwars.data.remote.dto.StarshipsDTO
 import de.olegrom.starwars.data.remote.dto.asDomainModel
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.presentation.home.FilmsViewModel
@@ -18,8 +17,8 @@ class FilmsListPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FilmDomainModel> {
-        val nextPage: Int? = params.key ?: 1
-        val loadResult = sharedViewModel.loadMovies(nextPage ?: 1).last()
+        val nextPage: Int = params.key ?: 1
+        val loadResult = sharedViewModel.loadMovies(nextPage).last()
         if (loadResult is ListScreenState.Success) {
             val response = loadResult.entity as FilmsDTO
             return LoadResult.Page(

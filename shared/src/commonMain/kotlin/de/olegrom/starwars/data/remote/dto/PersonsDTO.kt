@@ -13,7 +13,7 @@ data class PersonsDTO(
 ) {
     val nextPage: Int?
         get() {
-            if (next==null) {
+            if (next == null) {
                 return null
             }
             return try {
@@ -47,15 +47,15 @@ fun PersonsDTO.asDomainModel(): List<PersonDomainModel> {
 
 fun PersonDTO.asDomainModel(): PersonDomainModel {
     return PersonDomainModel(
-            name = this.name,
-            height = this.height,
-            mass = this.mass,
-            hairColor = this.hair_color,
-            skinColor = this.skin_color,
-            eyeColor = this.eye_color,
-            birthYear = this.birth_year,
-            gender = this.gender,
-            homeworld = this.homeworld,
-            url = this.url
-        )
+        name = this.name,
+        height = this.height,
+        mass = this.mass,
+        hairColor = this.hair_color,
+        skinColor = this.skin_color,
+        eyeColor = this.eye_color,
+        birthYear = this.birth_year,
+        gender = this.gender,
+        homeworld = this.homeworld,
+        url = this.url
+    )
 }

@@ -13,7 +13,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import kotlin.test.Test
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
@@ -32,7 +33,7 @@ class FilmsDetailViewModelTest {
         val sharedViewModel = FilmDetailsViewModel(GetFilmUseCase(ImplRepository(service)))
         launch {
             sharedViewModel.onIntent(AllScreensSideEvent.GetFilm("4"))
-            val state : FlowCollector<DetailScreenState> = FlowCollector {
+            val state: FlowCollector<DetailScreenState> = FlowCollector {
                 println(it)
                 if (it is DetailScreenState.Success) {
                     val entity = (it).entity

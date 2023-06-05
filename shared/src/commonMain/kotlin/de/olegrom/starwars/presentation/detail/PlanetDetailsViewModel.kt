@@ -20,6 +20,7 @@ class PlanetDetailsViewModel(private val getPlanetUseCase: GetPlanetUseCase) : V
             getPlanet(intent.id)
         }
     }
+
     private fun getPlanet(id: String) {
         viewModelScope.launch {
             getPlanetUseCase.invoke(id).asResult().collectLatest { result ->
@@ -27,16 +28,6 @@ class PlanetDetailsViewModel(private val getPlanetUseCase: GetPlanetUseCase) : V
                     is Result.Error -> {
                         _state.update {
                             DetailScreenState.Error(result.exception.message)
-                        }
-                    }
-                    Result.Idle -> {
-                        _state.update {
-                            DetailScreenState.Idle
-                        }
-                    }
-                    Result.Loading -> {
-                        _state.update {
-                            DetailScreenState.Loading
                         }
                     }
                     is Result.Success -> {

@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -14,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.common.ImageCard
@@ -35,7 +32,7 @@ fun StarshipDetailScreen(
     viewModel: StarshipDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val topAppBarViewModel : TopAppBarViewModel = getViewModel()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
     }
@@ -54,19 +51,24 @@ fun StarshipDetailScreen(
             is DetailScreenState.Success -> {
                 val starship = (state as DetailScreenState.Success).entity as StarshipDomainModel
                 topAppBarViewModel.title.value = starship.name
-                SectionHeader(modifier = Modifier.testTag(TestTag.detailHeader),
-                    title = starship.name, subtitle = starship.model)
+                SectionHeader(
+                    modifier = Modifier.testTag(TestTag.detailHeader),
+                    title = starship.name, subtitle = starship.model
+                )
                 ImageCard(StarWarsApp.STARSHIP_URL)
-                ParametersCard(listOf(Pair("Manufacturer", starship.manufacturer),
-                    Pair("Starship class", starship.starshipClass),
-                    Pair("Cargo capacity", starship.cargoCapacity),
-                    Pair("Consumables", starship.consumables),
-                    Pair("Cost", starship.cost),
-                    Pair("Crew", starship.crew),
-                    Pair("Max atmosphering speed", starship.maxAtmospheringSpeed),
-                    Pair("Hyperdrive", starship.hyperdriveRating),
-                    Pair("Passengers", starship.passengers)
-                ))
+                ParametersCard(
+                    listOf(
+                        Pair("Manufacturer", starship.manufacturer),
+                        Pair("Starship class", starship.starshipClass),
+                        Pair("Cargo capacity", starship.cargoCapacity),
+                        Pair("Consumables", starship.consumables),
+                        Pair("Cost", starship.cost),
+                        Pair("Crew", starship.crew),
+                        Pair("Max atmosphering speed", starship.maxAtmospheringSpeed),
+                        Pair("Hyperdrive", starship.hyperdriveRating),
+                        Pair("Passengers", starship.passengers)
+                    )
+                )
                 //EntitiesListCard(listOf()) {}
             }
         }

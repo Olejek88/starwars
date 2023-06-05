@@ -7,14 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 import de.olegrom.starwars.android.ui.detail.FilmDetailScreen
 import de.olegrom.starwars.android.ui.detail.PersonDetailScreen
 import de.olegrom.starwars.android.ui.detail.PlanetDetailScreen
 import de.olegrom.starwars.android.ui.detail.StarshipDetailScreen
 import de.olegrom.starwars.android.ui.home.*
 import org.koin.androidx.compose.getViewModel
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.composable(
@@ -24,21 +24,34 @@ fun NavGraphBuilder.composable(
     composable(
         route = route,
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec = tween(800))
+            slideIntoContainer(
+                AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(800)
+            )
         },
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec = tween(800))
+            slideIntoContainer(
+                AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(800)
+            )
         },
         popExitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec = tween(800))
+            slideOutOfContainer(
+                AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(800)
+            )
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec = tween(800))
+            slideOutOfContainer(
+                AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(800)
+            )
         }
     ) {
         content()
     }
 }
+
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainGraph(
@@ -64,25 +77,25 @@ fun MainGraph(
         }
         composable(Screen.Film.route) {
             val filmId = it.arguments?.getString("filmId")
-            filmId?.let { id->
+            filmId?.let { id ->
                 FilmDetailScreen(id, modifier)
             }
         }
         composable(Screen.Starship.route) {
             val starshipId = it.arguments?.getString("starshipId")
-            starshipId?.let { id->
+            starshipId?.let { id ->
                 StarshipDetailScreen(id, modifier)
             }
         }
         composable(Screen.Person.route) {
             val personId = it.arguments?.getString("personId")
-            personId?.let { id->
+            personId?.let { id ->
                 PersonDetailScreen(id, modifier)
             }
         }
         composable(Screen.Planet.route) {
             val planetId = it.arguments?.getString("planetId")
-            planetId?.let { id->
+            planetId?.let { id ->
                 PlanetDetailScreen(id, modifier)
             }
         }

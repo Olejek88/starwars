@@ -20,6 +20,7 @@ class PersonDetailsViewModel(private val getPersonUseCase: GetPersonUseCase) : V
             getPerson(intent.id)
         }
     }
+
     private fun getPerson(id: String) {
         viewModelScope.launch {
             getPersonUseCase.invoke(id).asResult().collectLatest { result ->
@@ -27,16 +28,6 @@ class PersonDetailsViewModel(private val getPersonUseCase: GetPersonUseCase) : V
                     is Result.Error -> {
                         _state.update {
                             DetailScreenState.Error(result.exception.message)
-                        }
-                    }
-                    Result.Idle -> {
-                        _state.update {
-                            DetailScreenState.Idle
-                        }
-                    }
-                    Result.Loading -> {
-                        _state.update {
-                            DetailScreenState.Loading
                         }
                     }
                     is Result.Success -> {

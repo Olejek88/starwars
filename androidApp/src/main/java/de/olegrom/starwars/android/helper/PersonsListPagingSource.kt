@@ -2,7 +2,8 @@ package de.olegrom.starwars.android.helper
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import de.olegrom.starwars.data.remote.dto.*
+import de.olegrom.starwars.data.remote.dto.PersonsDTO
+import de.olegrom.starwars.data.remote.dto.asDomainModel
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
 import de.olegrom.starwars.presentation.home.ListScreenState
 import de.olegrom.starwars.presentation.home.PersonsViewModel

@@ -3,7 +3,6 @@ package de.olegrom.starwars.domain.domain_model
 import de.olegrom.starwars.CommonParcelable
 import de.olegrom.starwars.CommonParcelize
 import de.olegrom.starwars.data.local.dao.PlanetDAO
-import de.olegrom.starwars.data.local.dao.StarshipDAO
 
 @CommonParcelize
 data class PlanetDomainModel(
@@ -21,8 +20,8 @@ data class PlanetDomainModel(
     val id: String
         get() {
             val params = url.split("/")
-            if (params.size>=2) {
-                return params[params.size-2]
+            if (params.size >= 2) {
+                return params[params.size - 2]
             }
             return "1"
         }

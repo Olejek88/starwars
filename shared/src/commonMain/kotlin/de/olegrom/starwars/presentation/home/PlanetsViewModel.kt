@@ -1,11 +1,13 @@
 package de.olegrom.starwars.presentation.home
 
 import de.olegrom.starwars.domain.usecase.lists.GetPlanetsUseCase
-import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.domain.util.Result
+import de.olegrom.starwars.domain.util.asResult
 import de.olegrom.starwars.util.asCommonFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 
 class PlanetsViewModel(private val getPlanetsUseCase: GetPlanetsUseCase) : ViewModel() {
     fun loadPlanets(page: Int): Flow<ListScreenState> = flow {
@@ -13,8 +15,6 @@ class PlanetsViewModel(private val getPlanetsUseCase: GetPlanetsUseCase) : ViewM
             is Result.Error -> {
                 emit(ListScreenState.Error(result.exception.message))
             }
-            is Result.Idle -> {}
-            is Result.Loading -> {}
             is Result.Success -> {
                 emit(ListScreenState.Success(result.data))
             }

@@ -3,11 +3,8 @@ package de.olegrom.starwars.viewModel
 import de.olegrom.starwars.data.remote.FakeRemoteDataSource
 import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
-import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
 import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
-import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
@@ -16,7 +13,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import kotlin.test.Test
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
@@ -35,7 +33,7 @@ class StarshipDetailViewModelTest {
         val sharedViewModel = StarshipDetailsViewModel(GetStarshipUseCase(ImplRepository(service)))
         launch {
             sharedViewModel.onIntent(AllScreensSideEvent.GetStarship("1"))
-            val state : FlowCollector<DetailScreenState> = FlowCollector {
+            val state: FlowCollector<DetailScreenState> = FlowCollector {
                 if (it is DetailScreenState.Success) {
                     val entity = (it).entity
                     assertTrue(entity is StarshipDomainModel)

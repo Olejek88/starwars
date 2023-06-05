@@ -13,7 +13,7 @@ data class PlanetsDTO(
 ) {
     val nextPage: Int?
         get() {
-            if (next==null) {
+            if (next == null) {
                 return null
             }
             return try {
@@ -47,15 +47,15 @@ fun PlanetsDTO.asDomainModel(): List<PlanetDomainModel> {
 
 fun PlanetDTO.asDomainModel(): PlanetDomainModel {
     return PlanetDomainModel(
-            name = this.name,
-            rotationPeriod = this.rotation_period,
-            orbitalPeriod = this.orbital_period,
-            diameter = this.diameter,
-            climate = this.climate,
-            gravity = this.gravity,
-            terrain = this.terrain,
-            surfaceWater = this.surface_water,
-            population = this.population,
-            url = this.url
-        )
+        name = this.name,
+        rotationPeriod = this.rotation_period,
+        orbitalPeriod = this.orbital_period,
+        diameter = this.diameter,
+        climate = this.climate,
+        gravity = this.gravity,
+        terrain = this.terrain,
+        surfaceWater = this.surface_water,
+        population = this.population,
+        url = this.url
+    )
 }

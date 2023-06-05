@@ -13,9 +13,6 @@ import de.olegrom.starwars.domain.usecase.lists.GetPersonsUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetPlanetsUseCase
 import de.olegrom.starwars.domain.usecase.lists.GetStarshipsUseCase
 import de.olegrom.starwars.platformModule
-import org.koin.core.context.startKoin
-import org.koin.dsl.KoinAppDeclaration
-import org.koin.dsl.module
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.cache.*
@@ -23,6 +20,9 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.koin.core.context.startKoin
+import org.koin.dsl.KoinAppDeclaration
+import org.koin.dsl.module
 
 fun initKoin(
     enableNetworkLogs: Boolean = false,

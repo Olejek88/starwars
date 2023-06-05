@@ -11,11 +11,11 @@ import de.olegrom.starwars.domain.domain_model.PersonDomainModel
 import de.olegrom.starwars.presentation.home.PersonsViewModel
 import kotlinx.coroutines.flow.Flow
 
-class PersonsPagedViewModel (
+class PersonsPagedViewModel(
     private val sharedViewModel: PersonsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<PersonDomainModel>> =
         Pager(PagingConfig(pageSize = 10, initialLoadSize = 10), initialKey = 1) {
             PersonsListPagingSource(sharedViewModel)
-    }.flow.cachedIn(viewModelScope)
+        }.flow.cachedIn(viewModelScope)
 }

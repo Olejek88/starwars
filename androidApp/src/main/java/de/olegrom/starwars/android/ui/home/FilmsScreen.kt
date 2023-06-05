@@ -1,6 +1,5 @@
 package de.olegrom.starwars.android.ui.home
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -8,17 +7,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.common.PagingView
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
-import de.olegrom.starwars.presentation.home.*
+import de.olegrom.starwars.domain.domain_model.FilmDomainModel
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemContentType
-import androidx.paging.compose.itemKey
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 
 @Composable
 fun FilmsScreen(

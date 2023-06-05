@@ -62,7 +62,9 @@ fun ListLoadingView(modifier: Modifier) {
 @Composable
 fun PageLoadingView() {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularProgressIndicator(modifier = Modifier.size(50.dp))

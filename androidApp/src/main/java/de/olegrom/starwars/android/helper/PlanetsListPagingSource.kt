@@ -1,10 +1,8 @@
 package de.olegrom.starwars.android.helper
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import de.olegrom.starwars.data.remote.dto.PlanetsDTO
-import de.olegrom.starwars.data.remote.dto.StarshipsDTO
 import de.olegrom.starwars.data.remote.dto.asDomainModel
 import de.olegrom.starwars.domain.domain_model.PlanetDomainModel
 import de.olegrom.starwars.presentation.home.ListScreenState

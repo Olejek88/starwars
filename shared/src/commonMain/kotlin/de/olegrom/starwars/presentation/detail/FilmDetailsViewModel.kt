@@ -20,6 +20,7 @@ class FilmDetailsViewModel(private val getFilmUseCase: GetFilmUseCase) : ViewMod
             getFilm(intent.id)
         }
     }
+
     private fun getFilm(id: String) {
         viewModelScope.launch {
             getFilmUseCase.invoke(id).asResult().collectLatest { result ->
@@ -27,16 +28,6 @@ class FilmDetailsViewModel(private val getFilmUseCase: GetFilmUseCase) : ViewMod
                     is Result.Error -> {
                         _state.update {
                             DetailScreenState.Error(result.exception.message)
-                        }
-                    }
-                    Result.Idle -> {
-                        _state.update {
-                            DetailScreenState.Idle
-                        }
-                    }
-                    Result.Loading -> {
-                        _state.update {
-                            DetailScreenState.Loading
                         }
                     }
                     is Result.Success -> {

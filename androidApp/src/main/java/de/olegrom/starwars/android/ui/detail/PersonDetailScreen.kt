@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -14,14 +12,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import de.olegrom.starwars.android.StarWarsApp
-import de.olegrom.starwars.android.ui.common.*
-import de.olegrom.starwars.android.ui.getLabelByRoute
+import de.olegrom.starwars.android.ui.common.ErrorWidget
+import de.olegrom.starwars.android.ui.common.ImageCard
+import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.utils.TestTag
-import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
-import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
 import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
 import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
@@ -36,7 +32,7 @@ fun PersonDetailScreen(
     viewModel: PersonDetailsViewModel = getViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val topAppBarViewModel : TopAppBarViewModel = getViewModel()
+    val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     LaunchedEffect(key1 = Unit) {
         viewModel.onIntent(AllScreensSideEvent.GetPerson(personId))
     }
@@ -57,14 +53,17 @@ fun PersonDetailScreen(
                 val person = (state as DetailScreenState.Success).entity as PersonDomainModel
                 topAppBarViewModel.title.update { person.name }
                 ImageCard(StarWarsApp.PERSON_URL)
-                ParametersCard(listOf(Pair("Birth year", person.birthYear),
-                    Pair("Gender", person.gender),
-                    Pair("Eye color", person.eyeColor),
-                    Pair("Hair color", person.hairColor),
-                    Pair("Height", person.height),
-                    Pair("Skin color", person.skinColor),
-                    Pair("Mass", person.mass),
-                ))
+                ParametersCard(
+                    listOf(
+                        Pair("Birth year", person.birthYear),
+                        Pair("Gender", person.gender),
+                        Pair("Eye color", person.eyeColor),
+                        Pair("Hair color", person.hairColor),
+                        Pair("Height", person.height),
+                        Pair("Skin color", person.skinColor),
+                        Pair("Mass", person.mass),
+                    )
+                )
             }
         }
     }

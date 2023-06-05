@@ -16,11 +16,15 @@ import de.olegrom.starwars.android.utils.TestTag
 @Composable
 fun ParametersCard(parameters: List<Pair<String, String>>) {
     Card(
-        modifier = Modifier.fillMaxWidth().testTag(TestTag.detailParameters)
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(TestTag.detailParameters)
             .clip(shape = RoundedCornerShape(size = 10.dp)),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(10.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
             verticalArrangement = Arrangement.spacedBy(5.dp),
         ) {
             parameters.forEachIndexed { index, keyValue ->
@@ -39,10 +43,11 @@ fun ParametersCard(parameters: List<Pair<String, String>>) {
 @Preview
 @Composable
 fun ParametersCardPreview() {
-    ParametersCard(listOf(
-        Pair("Director", "George Lukas"),
-        Pair("Producer", "George Lukas"),
-        Pair("Release date", "24/12/2012")
-    )
+    ParametersCard(
+        listOf(
+            Pair("Director", "George Lukas"),
+            Pair("Producer", "George Lukas"),
+            Pair("Release date", "24/12/2012")
+        )
     )
 }

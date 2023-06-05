@@ -59,7 +59,7 @@ fun FilmDetailScreen(
 
 @Composable
 fun FilmDetailPageContent(film: FilmDomainModel) {
-    Column() {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         SectionHeader(
             modifier = Modifier.testTag(TestTag.detailHeader),
             title = film.title, film.director

@@ -30,16 +30,6 @@ class StarshipDetailsViewModel(private val getStarshipUseCase: GetStarshipUseCas
                             DetailScreenState.Error(result.exception.message)
                         }
                     }
-                    Result.Idle -> {
-                        _state.update {
-                            DetailScreenState.Idle
-                        }
-                    }
-                    Result.Loading -> {
-                        _state.update {
-                            DetailScreenState.Loading
-                        }
-                    }
                     is Result.Success -> {
                         _state.update {
                             DetailScreenState.Success(result.data)

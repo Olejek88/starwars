@@ -5,20 +5,16 @@ import de.olegrom.starwars.data.remote.dto.FilmsDTO
 import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.FilmsViewModel
 import de.olegrom.starwars.presentation.home.ListScreenState
 import de.olegrom.starwars.util.runBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import kotlin.test.Test
-import kotlin.test.assertFails
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)

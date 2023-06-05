@@ -24,7 +24,6 @@ import de.olegrom.starwars.android.navigation.main.Screen
 import de.olegrom.starwars.android.ui.common.PagingView
 import de.olegrom.starwars.android.ui.home.widgets.EntityCard
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
-import de.olegrom.starwars.presentation.home.ShipsViewModel
 import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
 import org.koin.androidx.compose.getViewModel

@@ -10,5 +10,5 @@ open class PersonDAO {
     var birthYear: String = ""
     var gender: String = ""
     var homeworld: String = ""
-    var url  = "https://swapi.dev/api/people/1/"
+    var url = "https://swapi.dev/api/people/1/"
 }

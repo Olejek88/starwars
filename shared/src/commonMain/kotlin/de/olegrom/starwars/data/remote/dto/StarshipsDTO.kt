@@ -13,7 +13,7 @@ data class StarshipsDTO(
 ) {
     val nextPage: Int?
         get() {
-            if (next==null) {
+            if (next == null) {
                 return null
             }
             return try {

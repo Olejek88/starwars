@@ -11,11 +11,14 @@ import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 import de.olegrom.starwars.presentation.home.ShipsViewModel
 import kotlinx.coroutines.flow.Flow
 
-class ShipsPagedViewModel (
+class ShipsPagedViewModel(
     private val sharedViewModel: ShipsViewModel
 ) : ViewModel() {
     var list: Flow<PagingData<StarshipDomainModel>> =
-        Pager(PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 10), initialKey = 1) {
+        Pager(
+            PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 10),
+            initialKey = 1
+        ) {
             ShipsListPagingSource(sharedViewModel)
-    }.flow.cachedIn(viewModelScope)
+        }.flow.cachedIn(viewModelScope)
 }

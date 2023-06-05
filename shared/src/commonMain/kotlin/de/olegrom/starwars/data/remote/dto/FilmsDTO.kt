@@ -13,7 +13,7 @@ data class FilmsDTO(
 ) {
     val currentPage: Int
         get() {
-            if (previous==null) {
+            if (previous == null) {
                 return 1
             }
             val page = filmsRegexPattern.matchEntire(previous)?.groups?.get(0)?.value
@@ -21,11 +21,11 @@ data class FilmsDTO(
         }
     val nextPage: Int?
         get() {
-            if (next==null) {
+            if (next == null) {
                 return null
             }
             return try {
-                val page =filmsRegexPattern.matchEntire(next)?.groups?.get(0)?.value
+                val page = filmsRegexPattern.matchEntire(next)?.groups?.get(0)?.value
                 page?.toInt()
             } catch (e: Exception) {
                 1
@@ -53,12 +53,12 @@ fun FilmsDTO.asDomainModel(): List<FilmDomainModel> {
 
 fun FilmDTO.asDomainModel(): FilmDomainModel {
     return FilmDomainModel(
-            title = this.title,
-            episodeId = this.episode_id,
-            openingCrawl = this.opening_crawl,
-            director = this.director,
-            producer = this.producer,
-            releaseDate = this.release_date,
-            url = this.url
-        )
+        title = this.title,
+        episodeId = this.episode_id,
+        openingCrawl = this.opening_crawl,
+        director = this.director,
+        producer = this.producer,
+        releaseDate = this.release_date,
+        url = this.url
+    )
 }
