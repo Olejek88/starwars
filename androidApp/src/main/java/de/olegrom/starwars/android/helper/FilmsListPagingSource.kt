@@ -22,7 +22,6 @@ class FilmsListPagingSource(
         val loadResult = sharedViewModel.loadMovies(nextPage ?: 1).last()
         if (loadResult is ListScreenState.Success) {
             val response = loadResult.entity as FilmsDTO
-            val currentPage = response.currentPage
             return LoadResult.Page(
                 data = response.asDomainModel(),
                 prevKey = null,

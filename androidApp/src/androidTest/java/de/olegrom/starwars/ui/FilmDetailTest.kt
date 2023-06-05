@@ -1,6 +1,7 @@
 package de.olegrom.starwars.ui
 
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -12,6 +13,7 @@ import de.olegrom.starwars.data.remote.service.FakeKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
+import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,9 +25,10 @@ class FilmDetailTest {
     @Before
     fun setUp() {
         val viewModel = FilmDetailsViewModel(GetFilmUseCase(ImplRepository(FakeKtorService())))
+        val topAppBarViewModel = TopAppBarViewModel()
         composeRule.activity.setContent {
             StarWarsTheme {
-                FilmDetailScreen("4", modifier = Modifier, viewModel = viewModel)
+                FilmDetailScreen("4", modifier = Modifier, viewModel = viewModel, topAppBarViewModel)
             }
         }
     }
