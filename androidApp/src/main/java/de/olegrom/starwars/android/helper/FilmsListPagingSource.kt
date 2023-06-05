@@ -17,24 +17,19 @@ class FilmsListPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FilmDomainModel> {
-        val nextPage: Int = params.key ?: 1
-        val loadResult = sharedViewModel.loadMovies(nextPage).last()
-        if (loadResult is ListScreenState.Success) {
-            val response = loadResult.entity as FilmsDTO
-            return LoadResult.Page(
-                data = response.asDomainModel(),
-                prevKey = null,
-                nextKey = response.nextPage
-            )
+        return when(val loadResult = sharedViewModel.loadMovies(params.key ?: 1).last()) {
+            is ListScreenState.Success -> {
+                val response = loadResult.entity as FilmsDTO
+                LoadResult.Page(
+                    data = response.asDomainModel(),
+                    prevKey = null,
+                    nextKey = response.nextPage ?: ((params.key ?: 1) + 1)
+                )
+            }
+            is ListScreenState.Error -> {
+                val error = loadResult.errorMessage
+                LoadResult.Error(Throwable(error))
+            }
         }
-        if (loadResult is ListScreenState.Error) {
-            val error = loadResult.errorMessage
-            return LoadResult.Error(Throwable(error))
-        }
-        return LoadResult.Page(
-            data = listOf(),
-            prevKey = null,
-            nextKey = null
-        )
     }
 }

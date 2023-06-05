@@ -17,23 +17,19 @@ class PersonsListPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PersonDomainModel> {
-        val loadResult = sharedViewModel.loadPersons(params.key ?: 1).last()
-        if (loadResult is ListScreenState.Success) {
-            val response = loadResult.entity as PersonsDTO
-            return LoadResult.Page(
-                data = response.asDomainModel(),
-                prevKey = null,
-                nextKey = response.nextPage ?: ((params.key ?: 1) + 1)
-            )
+        return when(val loadResult = sharedViewModel.loadPersons(params.key ?: 1).last()) {
+            is ListScreenState.Success -> {
+                val response = loadResult.entity as PersonsDTO
+                LoadResult.Page(
+                    data = response.asDomainModel(),
+                    prevKey = null,
+                    nextKey = response.nextPage ?: ((params.key ?: 1) + 1)
+                )
+            }
+            is ListScreenState.Error -> {
+                val error = loadResult.errorMessage
+                LoadResult.Error(Throwable(error))
+            }
         }
-        if (loadResult is ListScreenState.Error) {
-            val error = loadResult.errorMessage
-            return LoadResult.Error(Throwable(error))
-        }
-        return LoadResult.Page(
-            data = listOf(),
-            prevKey = null,
-            nextKey = null
-        )
     }
 }

@@ -17,23 +17,19 @@ class ShipsListPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StarshipDomainModel> {
-        val loadResult = sharedViewModel.loadShips(params.key ?: 1).last()
-        if (loadResult is ListScreenState.Success) {
-            val response = loadResult.entity as StarshipsDTO
-            return LoadResult.Page(
-                data = response.asDomainModel(),
-                prevKey = null,
-                nextKey = response.nextPage
-            )
+        return when(val loadResult = sharedViewModel.loadShips(params.key ?: 1).last()) {
+            is ListScreenState.Success -> {
+                val response = loadResult.entity as StarshipsDTO
+                LoadResult.Page(
+                    data = response.asDomainModel(),
+                    prevKey = null,
+                    nextKey = response.nextPage ?: ((params.key ?: 1) + 1)
+                )
+            }
+            is ListScreenState.Error -> {
+                val error = loadResult.errorMessage
+                LoadResult.Error(Throwable(error))
+            }
         }
-        if (loadResult is ListScreenState.Error) {
-            val error = loadResult.errorMessage
-            return LoadResult.Error(Throwable(error))
-        }
-        return LoadResult.Page(
-            data = listOf(),
-            prevKey = null,
-            nextKey = null
-        )
     }
 }
