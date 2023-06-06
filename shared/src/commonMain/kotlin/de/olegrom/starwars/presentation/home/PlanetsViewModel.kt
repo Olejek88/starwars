@@ -18,6 +18,7 @@ class PlanetsViewModel(private val getPlanetsUseCase: GetPlanetsUseCase) : ViewM
             is Result.Success -> {
                 emit(ScreenState.Success(result.data))
             }
+            else -> {}
         }
     }.asCommonFlow()
 }

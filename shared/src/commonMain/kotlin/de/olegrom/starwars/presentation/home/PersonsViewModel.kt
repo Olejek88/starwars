@@ -18,6 +18,7 @@ class PersonsViewModel(private val getPersonsUseCase: GetPersonsUseCase) : ViewM
             is Result.Success -> {
                 emit(ScreenState.Success(result.data))
             }
+            else -> {}
         }
     }.asCommonFlow()
 }

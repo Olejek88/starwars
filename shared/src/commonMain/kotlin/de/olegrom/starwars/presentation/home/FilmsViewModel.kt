@@ -18,6 +18,7 @@ class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel()
             is Result.Success -> {
                 emit(ScreenState.Success(result.data))
             }
+            else -> {}
         }
     }.asCommonFlow()
 }

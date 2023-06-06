@@ -18,6 +18,7 @@ class ShipsViewModel(private val getStarshipsUseCase: GetStarshipsUseCase) : Vie
             is Result.Success -> {
                 emit(ScreenState.Success(result.data))
             }
+            else -> {}
         }
     }.asCommonFlow()
 }
