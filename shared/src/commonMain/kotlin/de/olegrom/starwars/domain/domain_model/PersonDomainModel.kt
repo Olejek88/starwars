@@ -2,7 +2,6 @@ package de.olegrom.starwars.domain.domain_model
 
 import de.olegrom.starwars.CommonParcelable
 import de.olegrom.starwars.CommonParcelize
-import de.olegrom.starwars.data.local.dao.PersonDAO
 
 @CommonParcelize
 data class PersonDomainModel(
@@ -25,23 +24,4 @@ data class PersonDomainModel(
             }
             return "1"
         }
-}
-
-fun PersonDomainModel.asDao(): PersonDAO {
-    return PersonDAO().also {
-        it.name = this.name
-        it.height = this.height
-        it.mass = this.mass
-        it.hairColor = this.hairColor
-        it.skinColor = this.skinColor
-        it.eyeColor = this.eyeColor
-        it.birthYear = this.birthYear
-        it.gender = this.gender
-        it.homeworld = this.homeworld
-        it.url = this.url
-    }
-}
-
-fun List<PersonDomainModel>.asDao() = map {
-    it.asDao()
 }
