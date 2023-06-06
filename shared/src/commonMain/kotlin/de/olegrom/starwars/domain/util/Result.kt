@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 sealed interface Result<out T> {
+    object Loading : Result<Nothing>
+    object Idle : Result<Nothing>
     data class Success<T>(val data: T) : Result<T>
     data class Error(val exception: CustomMessage) : Result<Nothing>
 }

@@ -6,3 +6,4 @@ sealed interface DetailScreenState {
     data class Success(val entity: Any) : DetailScreenState
     data class Error(val errorMessage: String) : DetailScreenState
 }
+

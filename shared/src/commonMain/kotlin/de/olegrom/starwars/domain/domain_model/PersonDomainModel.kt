@@ -1,9 +1,5 @@
 package de.olegrom.starwars.domain.domain_model
 
-import de.olegrom.starwars.CommonParcelable
-import de.olegrom.starwars.CommonParcelize
-
-@CommonParcelize
 data class PersonDomainModel(
     var name: String = "",
     var height: String = "",
@@ -15,7 +11,7 @@ data class PersonDomainModel(
     var gender: String = "",
     var homeworld: String = "",
     var url: String = ""
-) : CommonParcelable {
+) {
     val id: String
         get() {
             val params = url.split("/")

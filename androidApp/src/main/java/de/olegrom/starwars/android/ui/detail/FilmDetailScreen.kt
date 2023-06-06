@@ -18,7 +18,6 @@ import de.olegrom.starwars.android.ui.common.*
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
@@ -33,7 +32,7 @@ fun FilmDetailScreen(
 ) {
     val state by viewModel.state.collectAsState()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetFilm(filmId))
+        viewModel.getFilm(filmId)
     }
     Column(
         modifier = modifier
@@ -47,7 +46,9 @@ fun FilmDetailScreen(
                 ErrorWidget((state as DetailScreenState.Error).errorMessage)
             }
             DetailScreenState.Idle -> {}
-            DetailScreenState.Loading -> {}
+            DetailScreenState.Loading -> {
+                PageLoadingView(modifier)
+            }
             is DetailScreenState.Success -> {
                 val film = (state as DetailScreenState.Success).entity as FilmDomainModel
                 topAppBarViewModel.title.update { film.title }

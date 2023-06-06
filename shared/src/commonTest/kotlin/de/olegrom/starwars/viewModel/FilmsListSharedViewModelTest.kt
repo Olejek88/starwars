@@ -6,7 +6,7 @@ import de.olegrom.starwars.data.remote.service.ImplKtorService
 import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.usecase.lists.GetFilmsUseCase
 import de.olegrom.starwars.presentation.home.FilmsViewModel
-import de.olegrom.starwars.presentation.home.ListScreenState
+import de.olegrom.starwars.presentation.home.ScreenState
 import de.olegrom.starwars.util.runBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,7 +31,7 @@ class FilmsListSharedViewModelTest {
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
             val loadResult = sharedViewModel.loadMovies(1).last()
-            assertTrue(loadResult is ListScreenState.Success)
+            assertTrue(loadResult is ScreenState.Success)
             assertTrue(loadResult.entity is FilmsDTO)
             val films = loadResult.entity as FilmsDTO
             assertTrue(films.results.isNotEmpty())
@@ -52,7 +52,7 @@ class FilmsListSharedViewModelTest {
         val sharedViewModel = FilmsViewModel(GetFilmsUseCase(ImplRepository(service)))
         launch {
             val loadResult = sharedViewModel.loadMovies(1).last()
-            assertTrue(loadResult is ListScreenState.Success)
+            assertTrue(loadResult is ScreenState.Success)
             assertTrue(loadResult.entity is FilmsDTO)
             val films = loadResult.entity as FilmsDTO
             assertTrue(films.results.isEmpty())

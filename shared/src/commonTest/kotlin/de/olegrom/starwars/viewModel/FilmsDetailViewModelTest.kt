@@ -6,7 +6,6 @@ import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.domain_model.FilmDomainModel
 import de.olegrom.starwars.domain.usecase.detail.GetFilmUseCase
 import de.olegrom.starwars.presentation.detail.FilmDetailsViewModel
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +31,7 @@ class FilmsDetailViewModelTest {
         )
         val sharedViewModel = FilmDetailsViewModel(GetFilmUseCase(ImplRepository(service)))
         launch {
-            sharedViewModel.onIntent(AllScreensSideEvent.GetFilm("4"))
+            sharedViewModel.getFilm("4")
             val state: FlowCollector<DetailScreenState> = FlowCollector {
                 println(it)
                 if (it is DetailScreenState.Success) {

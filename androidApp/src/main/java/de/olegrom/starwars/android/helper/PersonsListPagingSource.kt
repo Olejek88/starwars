@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import de.olegrom.starwars.data.remote.dto.PersonsDTO
 import de.olegrom.starwars.data.remote.dto.asDomainModel
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
-import de.olegrom.starwars.presentation.home.ListScreenState
+import de.olegrom.starwars.presentation.home.ScreenState
 import de.olegrom.starwars.presentation.home.PersonsViewModel
 import kotlinx.coroutines.flow.last
 
@@ -18,7 +18,7 @@ class PersonsListPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PersonDomainModel> {
         return when(val loadResult = sharedViewModel.loadPersons(params.key ?: 1).last()) {
-            is ListScreenState.Success -> {
+            is ScreenState.Success -> {
                 val response = loadResult.entity as PersonsDTO
                 LoadResult.Page(
                     data = response.asDomainModel(),
@@ -26,7 +26,7 @@ class PersonsListPagingSource(
                     nextKey = response.nextPage ?: ((params.key ?: 1) + 1)
                 )
             }
-            is ListScreenState.Error -> {
+            is ScreenState.Error -> {
                 val error = loadResult.errorMessage
                 LoadResult.Error(Throwable(error))
             }

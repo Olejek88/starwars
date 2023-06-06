@@ -15,11 +15,11 @@ import androidx.compose.ui.unit.dp
 import de.olegrom.starwars.android.StarWarsApp
 import de.olegrom.starwars.android.ui.common.ErrorWidget
 import de.olegrom.starwars.android.ui.common.ImageCard
+import de.olegrom.starwars.android.ui.common.PageLoadingView
 import de.olegrom.starwars.android.ui.common.ParametersCard
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.PersonDomainModel
 import de.olegrom.starwars.presentation.detail.PersonDetailsViewModel
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import kotlinx.coroutines.flow.update
@@ -34,7 +34,7 @@ fun PersonDetailScreen(
     val state by viewModel.state.collectAsState()
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetPerson(personId))
+        viewModel.getPerson(personId)
     }
     Column(
         modifier = modifier
@@ -48,7 +48,9 @@ fun PersonDetailScreen(
                 ErrorWidget((state as DetailScreenState.Error).errorMessage)
             }
             DetailScreenState.Idle -> {}
-            DetailScreenState.Loading -> {}
+            DetailScreenState.Loading -> {
+                PageLoadingView(modifier)
+            }
             is DetailScreenState.Success -> {
                 val person = (state as DetailScreenState.Success).entity as PersonDomainModel
                 topAppBarViewModel.title.update { person.name }

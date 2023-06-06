@@ -13,14 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import de.olegrom.starwars.android.StarWarsApp
-import de.olegrom.starwars.android.ui.common.ErrorWidget
-import de.olegrom.starwars.android.ui.common.ImageCard
-import de.olegrom.starwars.android.ui.common.ParametersCard
-import de.olegrom.starwars.android.ui.common.SectionHeader
+import de.olegrom.starwars.android.ui.common.*
 import de.olegrom.starwars.android.utils.TestTag
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import de.olegrom.starwars.presentation.home.TopAppBarViewModel
 import org.koin.androidx.compose.getViewModel
@@ -34,7 +30,7 @@ fun StarshipDetailScreen(
     val state by viewModel.state.collectAsState()
     val topAppBarViewModel: TopAppBarViewModel = getViewModel()
     LaunchedEffect(key1 = Unit) {
-        viewModel.onIntent(AllScreensSideEvent.GetStarship(starshipId))
+        viewModel.getStarship(starshipId)
     }
     Column(
         modifier = modifier
@@ -47,7 +43,9 @@ fun StarshipDetailScreen(
                 ErrorWidget((state as DetailScreenState.Error).errorMessage)
             }
             DetailScreenState.Idle -> {}
-            DetailScreenState.Loading -> {}
+            DetailScreenState.Loading -> {
+                PageLoadingView(modifier)
+            }
             is DetailScreenState.Success -> {
                 val starship = (state as DetailScreenState.Success).entity as StarshipDomainModel
                 topAppBarViewModel.title.value = starship.name

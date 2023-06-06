@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
 
 class PlanetsViewModel(private val getPlanetsUseCase: GetPlanetsUseCase) : ViewModel() {
-    fun loadPlanets(page: Int): Flow<ListScreenState> = flow {
+    fun loadPlanets(page: Int): Flow<ScreenState> = flow {
         when (val result = getPlanetsUseCase.invoke(page = page).asResult().last()) {
             is Result.Error -> {
-                emit(ListScreenState.Error(result.exception.message))
+                emit(ScreenState.Error(result.exception.message))
             }
             is Result.Success -> {
-                emit(ListScreenState.Success(result.data))
+                emit(ScreenState.Success(result.data))
             }
         }
     }.asCommonFlow()

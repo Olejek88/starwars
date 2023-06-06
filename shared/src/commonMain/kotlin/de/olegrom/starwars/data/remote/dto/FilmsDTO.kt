@@ -11,14 +11,6 @@ data class FilmsDTO(
     val previous: String?,
     val results: List<FilmDTO>,
 ) {
-    val currentPage: Int
-        get() {
-            if (previous == null) {
-                return 1
-            }
-            val page = filmsRegexPattern.matchEntire(previous)?.groups?.get(0)?.value
-            return page?.toInt() ?: 1
-        }
     val nextPage: Int?
         get() {
             if (next == null) {

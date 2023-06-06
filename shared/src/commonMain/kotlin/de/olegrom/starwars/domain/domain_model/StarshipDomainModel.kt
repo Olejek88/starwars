@@ -1,9 +1,5 @@
 package de.olegrom.starwars.domain.domain_model
 
-import de.olegrom.starwars.CommonParcelable
-import de.olegrom.starwars.CommonParcelize
-
-@CommonParcelize
 data class StarshipDomainModel(
     var name: String,
     var model: String,
@@ -18,7 +14,7 @@ data class StarshipDomainModel(
     var hyperdriveRating: String,
     var starshipClass: String,
     var url: String
-) : CommonParcelable {
+) {
     val id: String
         get() {
             val params = url.split("/")

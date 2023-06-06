@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
 
 class FilmsViewModel(private val getFilmsUseCase: GetFilmsUseCase) : ViewModel() {
-    fun loadMovies(page: Int): Flow<ListScreenState> = flow {
+    fun loadMovies(page: Int): Flow<ScreenState> = flow {
         when (val result = getFilmsUseCase.invoke(page = page).asResult().last()) {
             is Result.Error -> {
-                emit(ListScreenState.Error(result.exception.message))
+                emit(ScreenState.Error(result.exception.message))
             }
             is Result.Success -> {
-                emit(ListScreenState.Success(result.data))
+                emit(ScreenState.Success(result.data))
             }
         }
     }.asCommonFlow()

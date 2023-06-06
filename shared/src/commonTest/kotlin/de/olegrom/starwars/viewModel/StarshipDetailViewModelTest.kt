@@ -6,7 +6,6 @@ import de.olegrom.starwars.data.repository.ImplRepository
 import de.olegrom.starwars.domain.domain_model.StarshipDomainModel
 import de.olegrom.starwars.domain.usecase.detail.GetStarshipUseCase
 import de.olegrom.starwars.presentation.detail.StarshipDetailsViewModel
-import de.olegrom.starwars.presentation.home.AllScreensSideEvent
 import de.olegrom.starwars.presentation.home.DetailScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +31,7 @@ class StarshipDetailViewModelTest {
         )
         val sharedViewModel = StarshipDetailsViewModel(GetStarshipUseCase(ImplRepository(service)))
         launch {
-            sharedViewModel.onIntent(AllScreensSideEvent.GetStarship("1"))
+            sharedViewModel.getStarship("1")
             val state: FlowCollector<DetailScreenState> = FlowCollector {
                 if (it is DetailScreenState.Success) {
                     val entity = (it).entity
